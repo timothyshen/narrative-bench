@@ -1,0 +1,47 @@
+{
+  "id": "extraction-hamlet-act1",
+  "name": "Hamlet Act I — Entity Extraction",
+  "description": "Tests extraction of the dense character/location/event web from Hamlet's opening act. The text introduces the ghost, the political situation, and multiple character relationships in compressed dramatic prose.",
+  "locale": "en",
+  "contentType": "novel",
+  "chapter": {
+    "id": "hamlet-act1-full",
+    "title": "Act I — Something Is Rotten",
+    "content": "On the battlements of Elsinore Castle, the sentinels Bernardo and Marcellus stand watch in the freezing dark. They have summoned Horatio, Hamlet's friend and a scholar, to witness what they have twice seen: a ghost in the form of the dead King Hamlet, clad in the very armour he wore when he defeated old Fortinbras of Norway.\n\nHoratio arrives skeptical — 'Tush, tush, 'twill not appear' — but the ghost walks before them, silent and terrible. It wears the King's face. Horatio, shaken, acknowledges: 'It harrows me with fear and wonder.'\n\nDawn breaks. The court assembles. King Claudius — brother to the dead King and now married to Queen Gertrude, Hamlet's mother — addresses the court with practised smoothness. He acknowledges the old King's death and his own 'hasty' marriage in the same breath, mixing grief and celebration. He dispatches ambassadors Cornelius and Voltemand to Norway, where young Fortinbras threatens invasion. He grants Laertes permission to return to France.\n\nThen he turns to Hamlet, still dressed in mourning black. 'How is it that the clouds still hang on you?' Hamlet's reply is barbed: 'I am too much i' the sun.' Gertrude pleads with him to stay at Elsinore rather than return to Wittenberg. Hamlet consents, but alone, he erupts: 'O, that this too, too solid flesh would melt.' The world is 'an unweeded garden' to him. His father dead barely two months, his mother married to his uncle — 'a beast that wants discourse of reason would have mourned longer.'\n\nHoratio finds Hamlet and reports the ghost. Hamlet seizes on this: 'My father's spirit in arms! All is not well.' He resolves to watch that night.\n\nMeanwhile, Laertes warns his sister Ophelia against Hamlet's affections. 'Perhaps he loves you now,' but he is a prince — 'his will is not his own.' Their father Polonius reinforces this: 'I would not have you give words or talk with the Lord Hamlet.' Ophelia obeys.\n\nThat night, the ghost appears to Hamlet alone and speaks at last. 'I am thy father's spirit,' it says, condemned to purgatory. It reveals the murder: Claudius poured hebenon (poison) into the sleeping King's ear in the royal garden. 'The serpent that did sting thy father's life now wears his crown.' The ghost demands revenge but commands: 'Taint not thy mind, nor let thy soul contrive against thy mother.'\n\nHamlet, shattered, swears his companions to secrecy and declares he will 'put an antic disposition on' — feign madness. 'The time is out of joint,' he says. 'O cursed spite, that ever I was born to set it right.'",
+    "orderIndex": 0
+  },
+  "existingKB": [],
+  "expectedEntities": [
+    { "type": "character", "name": "Hamlet" },
+    { "type": "character", "name": "Claudius" },
+    { "type": "character", "name": "Gertrude" },
+    { "type": "character", "name": "Horatio" },
+    { "type": "character", "name": "Ophelia" },
+    { "type": "character", "name": "Polonius" },
+    { "type": "character", "name": "Laertes" },
+    { "type": "character", "name": "Bernardo" },
+    { "type": "character", "name": "Marcellus" },
+    { "type": "character", "name": "Fortinbras" },
+    { "type": "location", "name": "Elsinore Castle" },
+    { "type": "location", "name": "Wittenberg" },
+    { "type": "location", "name": "Norway" },
+    { "type": "location", "name": "France" },
+    { "type": "event", "name": "Murder of King Hamlet" },
+    { "type": "event", "name": "Ghost appearance" },
+    { "type": "event", "name": "Claudius and Gertrude's marriage" },
+    { "type": "relationship", "name": "Hamlet-Claudius" },
+    { "type": "relationship", "name": "Hamlet-Gertrude" },
+    { "type": "relationship", "name": "Hamlet-Horatio" },
+    { "type": "relationship", "name": "Hamlet-Ophelia" },
+    { "type": "relationship", "name": "Laertes-Ophelia" },
+    { "type": "relationship", "name": "Polonius-Ophelia" }
+  ],
+  "expectedAbsent": [
+    "Shakespeare",
+    "Act I",
+    "the audience",
+    "the reader",
+    "purgatory"
+  ],
+  "tags": ["dense-entity-web", "relationship-heavy", "hamlet", "act-1"]
+}

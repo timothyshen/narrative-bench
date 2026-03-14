@@ -1,0 +1,44 @@
+{
+  "id": "extraction-dream-red-chamber-ch1",
+  "name": "红楼梦 第一回 — Entity Extraction",
+  "locale": "zh",
+  "description": "Tests extraction from the dense opening chapter of Dream of the Red Chamber. Key challenges: multi-name characters (贾宝玉/宝玉/宝二爷), mythological frame narrative entities (should extract as worldbuilding, not hallucinate as real locations), and distinguishing character names from common words.",
+  "contentType": "novel",
+  "chapter": {
+    "id": "hlm-ch1-extract",
+    "title": "第一回 甄士隐梦幻识通灵 贾雨村风尘怀闺秀",
+    "content": "话说女娲氏炼石补天之时，于大荒山无稽崖炼成高经十二丈、方经二十四丈顽石三万六千五百零一块。女娲氏只用了三万六千五百块，只单单剩了一块未用，便弃在此山青埂峰下。\n\n谁知此石自经锻炼之后，灵性已通。一日，正当嗟悼之际，俄见一僧一道远远而来。那僧则癞头跣脚，那道则跛足蓬头。来至石前，席地而坐。\n\n那僧笑道：\"形体倒也是个宝物了！还只没有实在的好处，须得再镌上数字，使人一见便知是奇物方妙。然后携你到那昌明隆盛之邦、诗礼簪缨之族、花柳繁华地、温柔富贵乡去安身乐业。\"石头听了，喜不能禁。\n\n却说地陷东南，有个姑苏城，城中阊门最是红尘中一二等富贵风流之地。这阊门外有个十里街，街内有个仁清巷。巷内有个古庙，因地方窄狭，人皆呼作\"葫芦庙\"。庙旁住着一家乡宦，姓甄，名费，字士隐。\n\n甄士隐嫡妻封氏，情性贤淑，深明礼义。家中虽不甚富贵，然本地也推他为望族了。因这甄士隐禀性恬淡，不以功名为念，每日只以观花修竹、酌酒吟诗为乐。膝下无儿，只有一女，乳名唤作英莲，年方三岁。\n\n一日，甄士隐于梦中见一僧一道携一块美玉入太虚幻境。士隐意欲也跟了进去，方举步时忽听一声霹雳，恍恍惚惚之中梦醒。\n\n恰有一落魄书生走来化缘。此人姓贾名化，字时飞，别号雨村。甄士隐见其人品不俗，便资助银两，赠寒衣。贾雨村次日便去赴考。\n\n不久，英莲在元宵灯会上被人拐走。甄家又遭火灾，家产尽毁。甄士隐投靠岳父封肃，受尽冷眼。一日遇跛足道人唱《好了歌》，士隐大彻大悟，便随道人飘然而去。\n\n贾雨村高中进士，初为官清廉，后逐渐堕落，被参革职。在林如海家做家庭教师时，教导林黛玉读书。因贾政之力复职，从此卷入贾府事务。",
+    "orderIndex": 0
+  },
+  "existingKB": [],
+  "expectedEntities": [
+    { "type": "character", "name": "甄士隐" },
+    { "type": "character", "name": "贾雨村" },
+    { "type": "character", "name": "英莲" },
+    { "type": "character", "name": "封氏" },
+    { "type": "character", "name": "封肃" },
+    { "type": "character", "name": "林黛玉" },
+    { "type": "character", "name": "贾政" },
+    { "type": "character", "name": "林如海" },
+    { "type": "location", "name": "姑苏" },
+    { "type": "location", "name": "十里街" },
+    { "type": "location", "name": "葫芦庙" },
+    { "type": "location", "name": "太虚幻境" },
+    { "type": "event", "name": "英莲被拐" },
+    { "type": "event", "name": "甄家火灾" },
+    { "type": "event", "name": "甄士隐出家" },
+    { "type": "relationship", "name": "甄士隐-封氏" },
+    { "type": "relationship", "name": "甄士隐-英莲" },
+    { "type": "relationship", "name": "甄士隐-贾雨村" },
+    { "type": "relationship", "name": "甄士隐-封肃" },
+    { "type": "relationship", "name": "贾雨村-林黛玉" }
+  ],
+  "expectedAbsent": [
+    "曹雪芹",
+    "脂砚斋",
+    "读者",
+    "第一回",
+    "女娲"
+  ],
+  "tags": ["multi-name", "frame-narrative", "红楼梦", "zh", "ch-1"]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "guardian-hamlet-fp-traps",
+  "name": "Hamlet — False Positive Traps",
+  "description": "Well-written passages from Hamlet that contain intentional ambiguity, contradictions, and unreliable narration. A good guardian should NOT flag these as issues — they are deliberate literary devices.",
+  "locale": "en",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "hamlet-act1-ghost",
+      "title": "Act I — The Ghost",
+      "content": "Horatio said 'tis but our fantasy, and would not let belief take hold of him touching this dreaded sight twice seen of us. But look, the ghost appears again — the same figure, like the King that's dead. Horatio trembles and looks pale. 'Is not this something more than fantasy?' he whispers now, he who moments ago dismissed the vision as madness.\n\nThe ghost beckons Hamlet to follow. 'It will not speak,' says Horatio, yet urges caution: 'What if it tempt you toward the flood, my lord, or to the dreadful summit of the cliff?' Hamlet follows regardless. The ghost speaks at last — his father's voice, or the Devil's mimicry of it. 'I am thy father's spirit,' it says, 'doomed for a certain term to walk the night.' Murder most foul, it claims. Claudius poured poison in the King's ear as he slept in the garden.\n\nBut can the ghost be trusted? Hamlet himself will question this. 'The spirit that I have seen may be the devil,' he says later, 'and the devil hath power to assume a pleasing shape.' The truth of the ghost's testimony remains uncertain throughout — is it divine revelation or demonic temptation?",
+      "orderIndex": 0
+    },
+    {
+      "id": "hamlet-act3-madness",
+      "title": "Act III — The Antic Disposition",
+      "content": "Hamlet tells Rosencrantz and Guildenstern he is 'but mad north-north-west; when the wind is southerly, I know a hawk from a handsaw.' Is this true madness or performed madness? He has told Horatio he will 'put an antic disposition on' — yet his behaviour grows increasingly erratic. He berates Ophelia with cruelty that seems beyond any strategic performance: 'Get thee to a nunnery. Why wouldst thou be a breeder of sinners?'\n\nHe is cruel and tender by turns. To his mother: 'You cannot call it love, for at your age the heyday in the blood is tame.' Yet also: 'I must be cruel only to be kind.' He claims method in his madness, but the method itself seems mad.\n\nPoloniusremarks, 'Though this be madness, yet there is method in't.' The audience can never fully resolve whether Hamlet's instability is performance, genuine breakdown, or some shifting mixture. This ambiguity is the engine of the play.\n\nIn the same scene, Hamlet is philosophical ('To be, or not to be — that is the question'), strategically cunning (staging The Mousetrap to catch the king's conscience), and emotionally volatile (his treatment of Ophelia). These contradictions coexist without resolution.",
+      "orderIndex": 1
+    },
+    {
+      "id": "hamlet-act4-foils",
+      "title": "Act IV — Foils and Mirrors",
+      "content": "Laertes returns from France, a mirror to Hamlet. Where Hamlet deliberates, Laertes acts. 'I dare damnation,' Laertes declares. He will cut Hamlet's throat in the church — no philosophical hesitation, no moral wrestling. He is everything Hamlet is not, and this contrast illuminates both characters.\n\nFortinbras marches past with his army, fighting for a worthless patch of ground. Hamlet watches and condemns his own inaction: 'How all occasions do inform against me, and spur my dull revenge!' Yet he has just killed Polonius without hesitation — was that not action? He acts impulsively in one moment and paralyzes himself with thought in the next.\n\nThe Player King weeps for Hecuba, a fiction, while Hamlet cannot bring himself to weep for real grief. 'What's Hecuba to him, or he to Hecuba, that he should weep for her?' The play-within-a-play mirrors the larger play; the actor's performed emotion shames Hamlet's real emotional paralysis.\n\nEach foil — Laertes, Fortinbras, the Player King — reveals a different facet of Hamlet's character through contrast. None of them is 'right' and Hamlet 'wrong.' The play offers no single model of correct action.",
+      "orderIndex": 2
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "id": "kb-hamlet",
+      "title": "Hamlet",
+      "type": "character",
+      "content": "Prince of Denmark. Son of the murdered King Hamlet and Queen Gertrude. Philosophical, indecisive, prone to both profound insight and impulsive violence. Feigns madness ('antic disposition') but may also genuinely lose grip on sanity."
+    },
+    {
+      "id": "kb-claudius",
+      "title": "Claudius",
+      "type": "character",
+      "content": "King of Denmark. Hamlet's uncle who murdered King Hamlet by pouring poison in his ear, then married Gertrude. Politically shrewd, outwardly pious, inwardly guilty."
+    },
+    {
+      "id": "kb-horatio",
+      "title": "Horatio",
+      "type": "character",
+      "content": "Hamlet's loyal friend and confidant. Rational, skeptical, steady. The only character Hamlet fully trusts. Initially dismisses the ghost as fantasy, then witnesses it himself."
+    },
+    {
+      "id": "kb-ophelia",
+      "title": "Ophelia",
+      "type": "character",
+      "content": "Daughter of Polonius. Hamlet's love interest, though Hamlet's treatment of her oscillates between tenderness and cruelty. Driven to genuine madness and eventual death."
+    },
+    {
+      "id": "kb-laertes",
+      "title": "Laertes",
+      "type": "character",
+      "content": "Son of Polonius, brother of Ophelia. Hot-headed, action-oriented. Serves as a foil to Hamlet's indecisiveness. Returns from France to avenge his father."
+    },
+    {
+      "id": "kb-elsinore",
+      "title": "Elsinore Castle",
+      "type": "location",
+      "content": "Royal castle in Denmark. Setting for most of the play. Atmosphere of surveillance, suspicion, and political intrigue."
+    }
+  ],
+  "expectedIssues": [],
+  "expectedNonIssues": [
+    "Horatio's change from skeptic to believer is NOT an inconsistency — it is character development driven by witnessing the ghost firsthand",
+    "Hamlet's contradictory behavior (deliberation vs. impulsive action) is NOT a character inconsistency — it is the central dramatic tension",
+    "The ghost's uncertain reliability is NOT a plot hole — it is deliberate ambiguity",
+    "Hamlet being cruel to Ophelia while claiming to love her is NOT contradictory characterization — it is performed madness mixed with genuine emotional turmoil",
+    "Hamlet's 'To be or not to be' philosophical stance vs. his physical violence is NOT inconsistent — the play deliberately presents this paradox",
+    "Multiple characters serving as 'foils' with opposing traits to Hamlet is NOT redundancy — it is structural mirroring"
+  ],
+  "tags": ["false-positive", "literary-device", "unreliable-narrator", "dramatic-irony", "character-foil", "hamlet"]
+}
