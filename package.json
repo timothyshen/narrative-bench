@@ -1,0 +1,55 @@
+{
+  "name": "@creader/benchmark",
+  "version": "0.1.0",
+  "description": "The first narrative AI quality benchmark. Structural, quantifiable evaluation of story understanding across guardian consistency, literary analysis, style, chapter structure, and plot detection.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "narrative-bench": "./dist/runner.js",
+    "narrative-why": "./dist/analyze-why.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "bench": "tsx src/runner.ts",
+    "bench:why": "tsx src/analyze-why.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "ai": "^5.0.0",
+    "@ai-sdk/openai": "^1.0.0",
+    "@ai-sdk/anthropic": "^1.0.0",
+    "isomorphic-dompurify": "^2.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.5.0",
+    "@types/node": "^20.0.0",
+    "dotenv": "^16.0.0"
+  },
+  "files": [
+    "dist/",
+    "fixtures/",
+    "baselines/"
+  ],
+  "keywords": [
+    "benchmark",
+    "narrative",
+    "ai",
+    "literary-analysis",
+    "story",
+    "writing",
+    "nlp",
+    "evaluation",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/creader-io/benchmark"
+  }
+}
