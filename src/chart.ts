@@ -2,17 +2,16 @@
  * Chart Generator CLI
  *
  * Generates interactive HTML charts from benchmark reports.
- * Open the output files in a browser to view and screenshot.
  *
  * Usage:
- *   pnpm run bench:chart                           # Generate all charts from latest report
- *   pnpm run bench:chart -- --report 2026-03-14    # Use specific report
- *   pnpm run bench:chart -- --type radar           # Generate only radar chart
- *   pnpm run bench:chart -- --label "GPT-4o"       # Label for radar overlay
- *   pnpm run bench:chart -- --open                 # Open in browser after generation
+ *   pnpm run bench:chart                                          # All charts from latest report
+ *   pnpm run bench:chart -- --type radar                          # Radar only
+ *   pnpm run bench:chart -- --type radar --compare 2026-03-14-llm # Overlay two reports
+ *   pnpm run bench:chart -- --label "Local" --compare-label "LLM" # Custom labels
+ *   pnpm run bench:chart -- --open                                # Open in browser
  */
 
-import { readFileSync, readdirSync, writeFileSync, mkdirSync } from "fs"
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from "fs"
 import { join } from "path"
 import { execSync } from "child_process"
 import { generateRadarHTML } from "./charts/radar.js"
@@ -38,12 +37,14 @@ function hasFlag(name: string): boolean {
 
 const reportName = getArg("report")
 const chartType = getArg("type")
-const label = getArg("label") ?? "Current"
+const label = getArg("label") ?? "Local"
+const compareName = getArg("compare")
+const compareLabel = getArg("compare-label") ?? "LLM"
 const shouldOpen = hasFlag("open")
 
 // ── Load report ──
 
-function loadLatestReport(): { name: string; results: BenchmarkResult[] } {
+function loadReport(nameHint?: string): { name: string; results: BenchmarkResult[] } {
   const files = readdirSync(REPORTS_DIR)
     .filter(f => f.endsWith(".json"))
     .sort()
@@ -53,12 +54,12 @@ function loadLatestReport(): { name: string; results: BenchmarkResult[] } {
     process.exit(1)
   }
 
-  const target = reportName
-    ? files.find(f => f.includes(reportName))
+  const target = nameHint
+    ? files.find(f => f.includes(nameHint))
     : files[files.length - 1]
 
   if (!target) {
-    console.error(`Report "${reportName}" not found. Available: ${files.join(", ")}`)
+    console.error(`Report "${nameHint}" not found. Available: ${files.join(", ")}`)
     process.exit(1)
   }
 
@@ -76,8 +77,15 @@ function main() {
 
   mkdirSync(REPORTS_DIR, { recursive: true })
 
-  const report = loadLatestReport()
-  console.log(`Using report: ${report.name}`)
+  const report = loadReport(reportName)
+  console.log(`Primary report: ${report.name}`)
+
+  // Load compare report if specified
+  let compareReport: { name: string; results: BenchmarkResult[] } | null = null
+  if (compareName) {
+    compareReport = loadReport(compareName)
+    console.log(`Compare report: ${compareReport.name}`)
+  }
 
   const types = chartType ? [chartType] : ["radar", "bar", "trend"]
   const generated: string[] = []
@@ -85,8 +93,14 @@ function main() {
   for (const type of types) {
     switch (type) {
       case "radar": {
-        const path = join(REPORTS_DIR, `${report.name}-radar.html`)
-        const html = generateRadarHTML([{ label, results: report.results }])
+        const radarInputs = [{ label, results: report.results }]
+        if (compareReport) {
+          radarInputs.push({ label: compareLabel, results: compareReport.results })
+        }
+
+        const suffix = compareReport ? "compare-radar" : "radar"
+        const path = join(REPORTS_DIR, `${report.name}-${suffix}.html`)
+        const html = generateRadarHTML(radarInputs)
         writeFileSync(path, html)
         generated.push(path)
         console.log(`  Radar:       ${path}`)
@@ -120,7 +134,6 @@ function main() {
       try {
         execSync(`open "${path}"`)
       } catch {
-        // non-macOS — try xdg-open
         try { execSync(`xdg-open "${path}"`) } catch { /* ignore */ }
       }
     }

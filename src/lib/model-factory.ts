@@ -2,7 +2,6 @@
  * Model Factory
  *
  * Generic LLM model initialization supporting multiple providers.
- * Replaces the host project's createModelInstance with a standalone version.
  *
  * Configure via environment variables:
  *   BENCH_PROVIDER=openai|anthropic  (default: openai)
@@ -11,6 +10,8 @@
  * Or pass config directly to createModel().
  */
 
+import { createOpenAI } from "@ai-sdk/openai"
+import { createAnthropic } from "@ai-sdk/anthropic"
 import type { LanguageModel } from "ai"
 
 export interface ModelConfig {
@@ -23,17 +24,10 @@ export function createModel(config?: ModelConfig): LanguageModel {
   const modelId = config?.model ?? process.env.BENCH_MODEL ?? "gpt-4o-mini"
 
   switch (provider) {
-    case "openai": {
-      // Dynamic import to avoid requiring both SDKs
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { createOpenAI } = require("@ai-sdk/openai")
+    case "openai":
       return createOpenAI()(modelId)
-    }
-    case "anthropic": {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { createAnthropic } = require("@ai-sdk/anthropic")
+    case "anthropic":
       return createAnthropic()(modelId)
-    }
     default:
       throw new Error(
         `Unknown BENCH_PROVIDER: "${provider}". Supported: openai, anthropic`
