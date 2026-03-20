@@ -27,6 +27,8 @@ import { evaluateAnalysis } from "./evaluators/analysis.js"
 import { evaluateStyle } from "./evaluators/style.js"
 import { evaluateChapter } from "./evaluators/chapter.js"
 import { evaluatePlot } from "./evaluators/plot.js"
+import { evaluatePromptRegression } from "./evaluators/prompt-regression.js"
+import { loadEvalDataset } from "./lib/eval-dataset.js"
 import type { BenchmarkResult, Baseline, EvaluatorType } from "./types.js"
 import { getTotalTokens, resetTokens } from "./judges/llm-judge.js"
 
@@ -115,6 +117,21 @@ async function main() {
         const fixtures = loadFixtures("plot-structure", tagsFilter)
         console.log(`  Loaded ${fixtures.length} fixture(s)`)
         result = await evaluatePlot(fixtures, { version, useLLM })
+        break
+      }
+      case "prompt-regression": {
+        const datasetPath = getArg("dataset")
+        if (!datasetPath) {
+          console.log(`  Skipping: --dataset <path> required for prompt-regression`)
+          continue
+        }
+        const cases = loadEvalDataset(datasetPath)
+        console.log(`  Loaded ${cases.length} eval case(s)`)
+        // prompt-regression needs newText — skip if cases lack it
+        const regressionCases = cases
+          .filter((c) => c.acceptedText && c.prompt)
+          .map((c) => ({ ...c, newText: c.acceptedText }))
+        result = await evaluatePromptRegression(regressionCases, { version })
         break
       }
       default:

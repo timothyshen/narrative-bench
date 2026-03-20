@@ -79,6 +79,7 @@ export type EvaluatorType =
   | "style-prose"
   | "chapter-suspense"
   | "plot-structure"
+  | "prompt-regression"
 
 export interface FixtureResult {
   id: string
