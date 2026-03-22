@@ -13,14 +13,16 @@ export interface RadarInput {
   results: BenchmarkResult[]
 }
 
-// 4 distinct colors for 4 polygons: Hamlet/Local, HLM/Local, Hamlet/LLM, HLM/LLM
+// Colors for polygons — enough for 8 overlaid datasets
 const COLORS = [
-  { bg: "rgba(196, 127, 94, 0.20)", border: "rgba(196, 127, 94, 1)" },   // terracotta
-  { bg: "rgba(92, 124, 160, 0.20)", border: "rgba(92, 124, 160, 1)" },   // slate blue
-  { bg: "rgba(168, 178, 138, 0.20)", border: "rgba(168, 178, 138, 1)" }, // sage
-  { bg: "rgba(198, 90, 82, 0.20)", border: "rgba(198, 90, 82, 1)" },     // warm red
-  { bg: "rgba(140, 120, 100, 0.20)", border: "rgba(140, 120, 100, 1)" }, // brown
-  { bg: "rgba(180, 160, 90, 0.20)", border: "rgba(180, 160, 90, 1)" },   // gold
+  { bg: "rgba(196, 127, 94, 0.15)", border: "rgba(196, 127, 94, 1)" },   // terracotta
+  { bg: "rgba(92, 124, 160, 0.15)", border: "rgba(92, 124, 160, 1)" },   // slate blue
+  { bg: "rgba(168, 178, 138, 0.15)", border: "rgba(168, 178, 138, 1)" }, // sage
+  { bg: "rgba(198, 90, 82, 0.15)", border: "rgba(198, 90, 82, 1)" },     // warm red
+  { bg: "rgba(140, 120, 100, 0.15)", border: "rgba(140, 120, 100, 1)" }, // brown
+  { bg: "rgba(180, 160, 90, 0.15)", border: "rgba(180, 160, 90, 1)" },   // gold
+  { bg: "rgba(130, 90, 160, 0.15)", border: "rgba(130, 90, 160, 1)" },   // purple
+  { bg: "rgba(80, 170, 160, 0.15)", border: "rgba(80, 170, 160, 1)" },   // teal
 ]
 
 const DASH_PATTERNS: number[][] = [
@@ -153,6 +155,82 @@ export function generateRadarHTML(inputs: RadarInput[]): string {
       },
     },
   }, 800, 800)
+}
+
+// ── Model Comparison Radar ──
+
+export interface ModelScores {
+  [model: string]: Record<string, unknown>
+}
+
+const EVALUATOR_KEYS = ["guardian", "analysis", "style-prose", "chapter-suspense", "plot-structure"]
+
+/**
+ * Generate radar chart comparing multiple models.
+ * One polygon per model, axes = evaluator dimensions.
+ * Skips models with all-null scores. Treats null as 0.
+ */
+export function generateModelComparisonRadarHTML(models: ModelScores, subtitle?: string): string {
+  // Filter to models that have at least one non-null evaluator score
+  const modelNames = Object.keys(models).filter(m =>
+    EVALUATOR_KEYS.some(e => typeof models[m][e] === "number")
+  )
+  const labels = EVALUATOR_KEYS.map(e => EVALUATOR_NAMES[e] ?? e)
+
+  const datasets = modelNames.map((model, i) => {
+    const color = COLORS[i % COLORS.length]
+    const data = EVALUATOR_KEYS.map(e => {
+      const v = models[model][e]
+      return typeof v === "number" ? v : 0
+    })
+
+    return {
+      label: model,
+      data,
+      backgroundColor: color.bg,
+      borderColor: color.border,
+      borderWidth: 2.5,
+      borderDash: [] as number[],
+      pointBackgroundColor: color.border,
+      pointBorderColor: "#FDFAF5",
+      pointBorderWidth: 2,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+    }
+  })
+
+  const title = subtitle
+    ? `Narrative AI Benchmark — Model Comparison (${subtitle})`
+    : "Narrative AI Benchmark — Model Comparison"
+
+  return buildChartHTML(title, {
+    type: "radar",
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: { color: "#3C3A36", font: { size: 13 }, padding: 20 },
+        },
+        tooltip: {
+          callbacks: {
+            label: "__TOOLTIP_FN__",
+          },
+        },
+      },
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 100,
+          ticks: { stepSize: 20, color: "#8A8580", backdropColor: "transparent", font: { size: 11 } },
+          grid: { color: "rgba(60,58,54,0.1)" },
+          angleLines: { color: "rgba(60,58,54,0.1)" },
+          pointLabels: { color: "#3C3A36", font: { size: 14, weight: "bold" } },
+        },
+      },
+    },
+  }, 900, 900)
 }
 
 function buildChartHTML(title: string, config: unknown, width: number, height: number): string {

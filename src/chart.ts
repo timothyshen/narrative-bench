@@ -14,7 +14,8 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from "fs"
 import { join } from "path"
 import { execSync } from "child_process"
-import { generateRadarHTML } from "./charts/radar.js"
+import { generateRadarHTML, generateModelComparisonRadarHTML } from "./charts/radar.js"
+import type { ModelScores } from "./charts/radar.js"
 import { generateGroupedBarHTML } from "./charts/grouped-bar.js"
 import { generateTrendHTML } from "./charts/trend.js"
 import type { BenchmarkResult } from "./types.js"
@@ -87,7 +88,7 @@ function main() {
     console.log(`Compare report: ${compareReport.name}`)
   }
 
-  const types = chartType ? [chartType] : ["radar", "bar", "trend"]
+  const types = chartType ? [chartType] : ["radar", "bar", "trend", "models"]
   const generated: string[] = []
 
   for (const type of types) {
@@ -124,8 +125,36 @@ function main() {
         }
         break
       }
+      case "models": {
+        const scoresPath = join(REPORTS_DIR, "model-scores.json")
+        if (!existsSync(scoresPath)) {
+          console.warn("  No model-scores.json found. Skipping model comparison radar.")
+          break
+        }
+        const scoresRaw = JSON.parse(readFileSync(scoresPath, "utf-8")) as {
+          fixture?: ModelScores
+          original?: ModelScores
+        }
+
+        if (scoresRaw.fixture) {
+          const path = join(REPORTS_DIR, "model-comparison-fixture.html")
+          const html = generateModelComparisonRadarHTML(scoresRaw.fixture, "Fixture Text")
+          writeFileSync(path, html)
+          generated.push(path)
+          console.log(`  Fixture:     ${path}`)
+        }
+
+        if (scoresRaw.original) {
+          const path = join(REPORTS_DIR, "model-comparison-original.html")
+          const html = generateModelComparisonRadarHTML(scoresRaw.original, "Original Text")
+          writeFileSync(path, html)
+          generated.push(path)
+          console.log(`  Original:    ${path}`)
+        }
+        break
+      }
       default:
-        console.warn(`  Unknown chart type: ${type} (available: radar, bar, trend)`)
+        console.warn(`  Unknown chart type: ${type} (available: radar, bar, trend, models)`)
     }
   }
 
