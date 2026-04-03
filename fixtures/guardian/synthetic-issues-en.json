@@ -1,0 +1,181 @@
+{
+  "id": "guardian-synthetic-issues-en",
+  "name": "Synthetic Issues — English (Recall Test)",
+  "description": "15 English passages with intentionally seeded writing issues. Each passage contains exactly 1-2 known issues that Guardian should detect. Used for recall evaluation — does Guardian catch real problems?",
+  "locale": "en",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "syn-en-01",
+      "title": "Lexical Illusion — The Library",
+      "content": "Elena stepped through the doorway and paused. The library stretched before her, floor to ceiling shelves packed with leather-bound volumes that had not been touched in decades. Dust motes drifted through a shaft of afternoon light.\n\nShe walked to the the mahogany bookshelf nearest the window and ran her fingers along the spines. Most were legal texts, densely printed and foxed with age. One volume sat slightly forward of the others, as if recently pulled and replaced. She drew it out. A first edition of Montague's treatise on property law, published in 1887. Between its pages she found a folded sheet of notepaper covered in a tight, slanted hand.\n\nThe ink had faded to sepia, but the words were still legible. An inventory of some kind — dates, sums, names. She recognized several of the names from the household accounts she had reviewed that morning. The figures did not match.\n\nElena photographed the page with her phone, then slid the volume back into place, careful to leave it protruding exactly as she had found it. Whoever had consulted this book recently might return for it, and she wanted no sign of her visit.",
+      "orderIndex": 0
+    },
+    {
+      "id": "syn-en-02",
+      "title": "Lexical Illusion — The Cellar Report",
+      "content": "Thomas stood in the hallway, hands clasped behind his back, recounting the events of Tuesday evening with the measured precision of a man accustomed to giving testimony.\n\n\"I completed my rounds at half past nine,\" he said. \"The ground floor was secured, the kitchen staff had departed, and I had locked the service entrance. I then proceeded to the wine cellar to retrieve a bottle of the 1998 Bordeaux that Sir Ashworth had requested for the following evening.\"\n\nElena made a note. \"And the cellar door?\"\n\n\"Unlocked. Which was unusual. I retrieved the bottle from from the third rack on the left — the one nearest the far wall — and returned upstairs. The entire errand took perhaps four minutes.\"\n\n\"Did you notice anything out of place in the cellar?\"\n\nThomas considered this. \"The light was already on when I arrived. I assumed one of the kitchen staff had forgotten to switch it off, though they deny having been down there that day. And the flagstones near the drainage grate were damp, which struck me as odd given we have had no rain.\"\n\nElena underlined the word 'damp' in her notebook. Water in a cellar was unremarkable. Water in a cellar with no apparent source was something else entirely.",
+      "orderIndex": 1
+    },
+    {
+      "id": "syn-en-03",
+      "title": "Dead Character Active — Marcus in the Study",
+      "content": "The morning post had brought three letters and a parcel wrapped in brown paper. Catherine sorted through them at the breakfast table, setting aside the bills and circulars.\n\nMarcus walked into the study carrying a bundle of correspondence he had collected from the village post office. He placed the letters on the side table and poured himself a cup of tea from the pot that sat warming on the sideboard.\n\n\"Anything of interest?\" Catherine asked without looking up.\n\n\"A letter from the solicitor,\" Marcus said, settling into the wing chair by the fire. \"Regarding the trust. He wants a meeting before the end of the month.\"\n\nCatherine set down her cup. The trust had been a source of friction for months — the terms of Sir Ashworth's will had left several provisions ambiguous, and the family had been unable to agree on interpretation. She had hoped the matter might resolve itself quietly. Evidently it would not.\n\n\"When does he propose?\" she asked.\n\n\"Thursday week. In London, at his offices in Gray's Inn.\"\n\nShe nodded. London meant a full day's travel each way, which was inconvenient, but the alternative — letting the solicitor come to Ravenscroft — felt like an invasion. Better to keep legal matters at a professional distance.",
+      "orderIndex": 2
+    },
+    {
+      "id": "syn-en-04",
+      "title": "Dead Character Active — Evelyn at the Window",
+      "content": "The east wing had been closed since the previous autumn, its furniture draped in white sheets and its shutters latched against the weather. But the housekeeper reported seeing a light in the upstairs corridor, and Elena had volunteered to investigate.\n\nShe found the corridor empty and cold. The wallpaper was peeling at the seams, and a faint smell of mildew hung in the air. At the far end, the door to the morning room stood ajar.\n\nEvelyn stood at the tall window, looking out across the formal garden. She turned when Elena entered the room and gestured toward the view. The rose beds had been replanted in a geometric pattern that followed the original eighteenth-century design, and even in the grey light they made an impressive display.\n\n\"The gardener has done remarkable work,\" Evelyn said, adjusting the shawl around her shoulders. \"My mother would have approved. She always insisted on symmetry.\"\n\nElena studied the garden. The paths were raked clean, the hedges trimmed to precise angles. It was immaculate — the kind of perfection that required daily attention from someone who cared deeply about the result.\n\n\"How long has he been working on the restoration?\" Elena asked.\n\n\"Since March. He found the original plans in the archive and has followed them exactly.\"",
+      "orderIndex": 3
+    },
+    {
+      "id": "syn-en-05",
+      "title": "Name Typo — Catherine Misspelled",
+      "content": "The drawing room fell quiet after Robert finished reading the letter aloud. Elena watched the faces around the table, cataloguing reactions. Thomas remained impassive. Sarah frowned at her notes. Whitfield adjusted his glasses and said nothing.\n\nCathrine seemed uncomfortable when the subject of the will was raised. She shifted in her chair and looked toward the window, though the curtains were drawn and offered nothing to see. Her fingers traced the rim of her teacup in slow circles.\n\n\"The provisions are clear enough,\" Robert said, folding the letter and returning it to its envelope. \"Sir Ashworth intended the estate to remain intact. The question is whether the codicil supersedes the original terms.\"\n\n\"It was witnessed,\" Whitfield noted. \"Two signatures, both verified. Legally it should stand.\"\n\n\"Legally, perhaps,\" Elena replied. \"But the timing raises questions. The codicil was drafted three days before his death, and the witnesses were members of staff. A court might find that suggestive.\"\n\nSarah looked up from her notes. \"I reviewed the forensic timeline again this morning. The ink analysis confirms the codicil was written with the same pen and ink that Sir Ashworth used for his regular correspondence. Whatever else might be in doubt, the document is genuine.\"\n\nThe room considered this in silence.",
+      "orderIndex": 4
+    },
+    {
+      "id": "syn-en-06",
+      "title": "Name Typo — Whitfield Misspelled",
+      "content": "Elena found the professor in the archive room on the third floor, surrounded by open boxes and loose papers. He had been cataloguing Sir Ashworth's private collection for the past week, and the work had consumed him entirely.\n\n\"Professor Whitfeld, do you have a moment?\" Elena asked from the doorway.\n\nHe looked up, blinking as though returning from a considerable distance. A magnifying glass dangled from a cord around his neck, and his fingers were stained with the dust of old paper.\n\n\"Of course. Come in, come in.\" He cleared a stack of bound journals from the nearest chair. \"I've made a rather interesting discovery, as it happens. Sir Ashworth kept a private ledger — separate from the household accounts. The entries go back forty years.\"\n\nElena sat down. \"What kind of entries?\"\n\n\"Financial, mostly. Payments to individuals not listed in any official capacity. Some of the sums are quite substantial.\" He turned the ledger toward her, pointing to a column of figures in faded blue ink. \"This one here — two thousand pounds, paid quarterly, to someone identified only as 'M.G.' The payments begin in 1982 and continue until 2019.\"\n\nElena leaned forward. M.G. The initials could belong to anyone, but given the household she had come to know, one name suggested itself immediately.",
+      "orderIndex": 5
+    },
+    {
+      "id": "syn-en-07",
+      "title": "Unattributed Dialogue — Basement Discussion",
+      "content": "Elena and Robert descended the narrow stairs to the basement level. The air grew cooler with each step, carrying the mineral smell of limestone and standing water. At the bottom, a low-ceilinged corridor stretched in both directions.\n\nRobert switched on his torch and swept the beam along the walls. Old shelving units lined one side, stacked with wooden crates and cardboard boxes.\n\n\"Did you check the east passage?\"\n\"The door was locked from the inside.\"\n\"Someone must have another key.\"\n\"Unless they left through the drainage access.\"\n\nElena considered this. The drainage access was a narrow culvert that ran beneath the east wing and emerged at the base of the garden wall. An adult could fit through it, but only just, and they would emerge covered in mud and limestone dust. She had examined the culvert opening that morning and found no signs of recent passage — no scuff marks, no disturbed cobwebs.\n\n\"The drainage access hasn't been used,\" she said, shining her torch toward the locked door. \"Which means either someone has a key we don't know about, or they're still down here.\"\n\nRobert looked at her. The beam of his torch caught the edge of his expression — not quite fear, but a heightened alertness that had not been there a moment ago.",
+      "orderIndex": 6
+    },
+    {
+      "id": "syn-en-08",
+      "title": "Unattributed Dialogue — Dinner Table",
+      "content": "Dinner that evening was a subdued affair. The long table had been set for six, though only five chairs were occupied. A single candelabra provided light at the center, casting unsteady shadows across the white linen.\n\nThomas served the first course in silence — a clear consomme with shredded herbs floating on the surface. For several minutes, the only sounds were the clink of spoons against porcelain and the distant ticking of the hall clock.\n\n\"Pass the salt, would you?\"\n\"Has anyone seen the housekeeper this evening?\"\n\"She retired early. A headache, apparently.\"\n\"That is unusual for a Thursday.\"\n\"Nothing about this week has been usual.\"\n\nElena tasted the consomme. It was well made — rich and clear, with a depth of flavour that spoke of long preparation. She wondered briefly who had prepared it, given the housekeeper's absence. Thomas, presumably, though his talents had always seemed to lie elsewhere.\n\nRobert caught her eye across the table and raised an eyebrow. She gave a small shake of her head. Not now. Whatever he wanted to discuss could wait until they were alone and away from the careful ears of the household.\n\nThe second course arrived: roast pheasant with root vegetables and a reduction of port wine. Nobody commented on the food or the silence that surrounded it.",
+      "orderIndex": 7
+    },
+    {
+      "id": "syn-en-09",
+      "title": "Overused Word — Darkness in the Tunnel",
+      "content": "The tunnel entrance was hidden behind a false panel in the cellar wall. Elena pushed through and found herself in absolute darkness. She raised her lantern, but the darkness retreated only a few feet before swallowing the light entirely.\n\nEach step brought her deeper into the darkness. The ceiling dropped low enough that she had to stoop, and the walls narrowed until her shoulders nearly brushed the rough stone on either side. The air was cold and still, carrying the mineral tang of wet limestone.\n\nThe darkness ahead had weight and texture, a presence that pressed against the small circle of her lantern light as if testing its boundaries. She paused and listened. Water dripped somewhere ahead of her, each drop producing a sharp echo that the darkness amplified and distorted.\n\nHer lantern flame wavered in a draft she could not feel, and for one moment the darkness surged forward, halving the radius of visible ground. She steadied the lamp with both hands and waited until the flame grew tall again.\n\nThe tunnel curved to the right. She followed it, counting her steps — forty-seven, forty-eight, forty-nine. At fifty-two she emerged into a wider space where the darkness lifted slightly, enough for her to make out the vague shapes of wooden crates stacked against the far wall. A second passage branched to the left, and from its mouth came the faintest current of fresh air.\n\nElena marked the junction with chalk and chose the passage with the draft. Air meant an opening. An opening meant a way out — or a way in.",
+      "orderIndex": 8
+    },
+    {
+      "id": "syn-en-10",
+      "title": "Overused Word — Silence in the Drawing Room",
+      "content": "The silence in the drawing room was absolute. Catherine sat rigid in her chair, hands folded in her lap, and the silence between them stretched until it became a presence of its own. Elena waited without speaking. She had learned years ago that silence could be a more effective interrogator than any direct question.\n\nThe mantle clock had stopped at quarter past eleven — wound down, perhaps, or simply neglected in the disruption of recent days. Without its steady ticking, the silence in the room seemed to deepen and solidify. Elena could hear her own pulse, the creak of the chair beneath her, the distant sound of wind against the windows.\n\nCatherine's fingers twitched against the armrest. It was the only movement in the silence, and Elena noted it carefully. A nervous habit, perhaps, or the physical manifestation of a thought that wanted to become speech but had not yet found permission.\n\nElena let another full minute pass, letting the silence do its work. She watched Catherine's breathing, the small shifts in her posture, the way her gaze moved from the curtained window to the cold fireplace and back again.\n\nFinally Catherine spoke, and the sound of her voice breaking through the silence was almost startling. \"You already know, don't you,\" she said. It was not a question. \"You've known since you found the ledger.\"\n\nElena inclined her head but did not answer. The silence had done what she needed it to do.",
+      "orderIndex": 9
+    },
+    {
+      "id": "syn-en-11",
+      "title": "Punctuation Error — Missing Comma",
+      "content": "However she continued to examine the documents without acknowledging the interruption. The papers were spread across the desk in a pattern that made sense only to her — correspondence on the left, financial records in the center, photographs along the right edge.\n\nRobert waited in the doorway, uncertain whether to speak again or withdraw. He had brought news from the village that seemed urgent at the time but felt less so now, standing in the quiet authority of Elena's concentration.\n\nShe picked up a photograph and held it at arm's length, tilting it to catch the light from the desk lamp. It showed a group of people standing in front of Ravenscroft's main entrance, dressed for some formal occasion — a garden party, perhaps, or an anniversary celebration. The image was at least twenty years old, judging by the fashions and the state of the ivy on the portico columns.\n\n\"This was taken in 2004,\" she said, without looking up. \"The year the east wing was renovated. Everyone who matters is in this photograph.\"\n\nRobert stepped closer. He could make out seven figures arranged in a loose semicircle on the gravel drive. He recognized Sir Ashworth at the center, younger and straighter than the man he had known, and beside him a woman in a pale dress whom he did not recognize.\n\n\"Who is that?\" he asked, pointing.",
+      "orderIndex": 10
+    },
+    {
+      "id": "syn-en-12",
+      "title": "Punctuation Error — Doubled Comma",
+      "content": "The evidence,, though circumstantial, pointed in one direction. Elena laid out the facts as she understood them, speaking methodically and without embellishment.\n\nFirst: the cellar door had been unlocked on Tuesday evening, contrary to standard procedure. Second: water had been found on the cellar floor near the drainage grate, despite the absence of rain. Third: the private ledger recorded quarterly payments to an individual identified only by initials. Fourth: the codicil to Sir Ashworth's will had been drafted just three days before his death, altering the distribution of the estate in ways that benefited one party above all others.\n\n\"None of these facts, taken individually, proves anything,\" Elena said. \"A door left unlocked is carelessness. Damp in a cellar is ordinary. Private payments may have innocent explanations. A late codicil may reflect nothing more than a change of heart.\"\n\nShe paused and looked around the table. Thomas stood by the sideboard, expressionless. Sarah had her notebook open but was not writing in it. Whitfield polished his glasses with slow, deliberate strokes.\n\n\"But taken together,\" Elena continued, \"they form a pattern. And the pattern suggests that someone in this house had both the motive and the means to alter the terms of Sir Ashworth's estate before he died.\"",
+      "orderIndex": 11
+    },
+    {
+      "id": "syn-en-13",
+      "title": "Cliche — Blood Ran Cold",
+      "content": "Elena opened the final envelope and unfolded the single sheet of paper inside. The handwriting was cramped and hurried, nothing like the measured script she had seen in Sir Ashworth's other correspondence. This had been written in haste, possibly in distress.\n\nShe read the first line and her blood ran cold. The letter was addressed to a solicitor — not the family solicitor, but another, whose offices were in a different part of London altogether. It instructed him to prepare a second will, one that would supersede all previous documents and leave the entirety of the Ravenscroft estate to a person whose name Elena had not encountered in any of her research.\n\nShe read the letter again, more carefully this time. The date was significant: it had been written a full week before the codicil, which meant Sir Ashworth had been contemplating not merely an amendment to his will but a complete replacement of it. Someone had intervened between this letter and the codicil. Someone had persuaded or compelled him to change course.\n\nElena folded the letter and placed it in her inside pocket. This altered the geometry of the case entirely. The codicil she had been investigating was not the endgame — it was the compromise. The original intention had been far more radical, and someone had worked to prevent it.",
+      "orderIndex": 12
+    },
+    {
+      "id": "syn-en-14",
+      "title": "Telling Not Showing — Emotional Exposition",
+      "content": "The confrontation in the conservatory left everyone shaken. Elena had laid out the evidence plainly, without accusation but without mercy either, and the effect on the household was immediate.\n\nThomas retreated to the kitchen corridor. He was angry about the implication that he had been complicit. He paced the length of the corridor, his footsteps sharp against the flagstones, refusing to speak to anyone who approached. Twice he stopped and turned as if to say something, then thought better of it and resumed his pacing.\n\nSarah went to the boot room. She was nervous about the forensic implications, and she began rechecking her analysis of the ink samples, though she had already confirmed her findings three times. Her hands moved quickly over the equipment, arranging and rearranging instruments that did not need rearranging.\n\nRobert sat alone at the breakfast table. He was disappointed by what the evidence suggested. He had admired Sir Ashworth and had spent years writing favourably about the family's philanthropic work. The possibility that the estate concealed a decades-long financial arrangement of uncertain legality cast all of that in a different light.\n\nHe was desperate to find an alternative explanation, one that preserved his understanding of the man he had known. He pulled out the old newspaper clippings he had brought with him and spread them across the table, searching for some detail he might have missed.\n\nCatherine alone remained composed. She sat in her usual chair by the window and drank her tea as though nothing of consequence had occurred.",
+      "orderIndex": 13
+    },
+    {
+      "id": "syn-en-15",
+      "title": "Paragraph Wall — The Estate Description",
+      "content": "Ravenscroft Manor stood on a limestone ridge overlooking the Wye Valley, its western facade catching the last light of the afternoon sun. The house had been built in 1743 by the first Sir Edmund Ashworth, a Bristol merchant who had made his fortune in the colonial trade and sought to establish his family among the landed gentry of the Welsh borders. The original structure was a modest Georgian box of honey-coloured stone, symmetrical and restrained, with tall sash windows and a pedimented doorway approached by a flight of shallow steps. Over the following century, successive generations had added to it with varying degrees of taste and ambition. The east wing, completed in 1812, introduced a library and a billiard room in a heavier, more ornate style that sat uneasily beside the Georgian original. The conservatory, a confection of iron and glass inspired by the Crystal Palace, was attached to the south elevation in 1858 and remained the most distinctive feature of the house when viewed from the garden. A service wing extended to the north, housing the kitchens, laundry, and servants' quarters in a long, low range of brick buildings that made no pretence to architectural distinction. The grounds comprised forty acres of parkland, formal gardens designed by a pupil of Capability Brown, a walled kitchen garden that still produced vegetables and soft fruit for the household, a stable block converted to garages in the 1920s, and a small chapel of Norman origin that predated the house by six hundred years and served as the family burial place. The estate had passed through eight generations of Ashworths without interruption, each inheriting both the property and the accumulated weight of obligation and expectation that attended it. Sir Ashworth, the most recent and now final bearer of the name, had maintained the house and grounds with a conscientiousness that bordered on obsession, spending the greater part of his private income on repairs, restoration, and the preservation of a way of life that the modern world had largely abandoned. His death without a clear heir had placed all of this in jeopardy, and the question of what would become of Ravenscroft was, in the end, the question that had brought Elena to its door.",
+      "orderIndex": 14
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "id": "kb-elena",
+      "title": "Elena",
+      "type": "character",
+      "content": "Private investigator hired to examine the circumstances of Sir Ashworth's death and the disputed provisions of his will. Methodical, observant, patient. Prefers to let others talk."
+    },
+    {
+      "id": "kb-marcus",
+      "title": "Marcus",
+      "type": "character",
+      "content": "Sir Ashworth's former business partner. Found dead in the study on the night of the storm, three weeks before the story begins. Cause of death recorded as heart failure, though circumstances remain disputed.",
+      "metadata": { "status": "deceased" }
+    },
+    {
+      "id": "kb-catherine",
+      "title": "Catherine",
+      "type": "character",
+      "content": "Sir Ashworth's niece and primary beneficiary under the original will. Composed, guarded, protective of the family's reputation. Resides at Ravenscroft year-round."
+    },
+    {
+      "id": "kb-thomas",
+      "title": "Thomas",
+      "type": "character",
+      "content": "Butler at Ravenscroft Manor. Has served the household for twenty-two years. Precise, formal, loyal to the family. Discovered Sir Ashworth's body."
+    },
+    {
+      "id": "kb-evelyn",
+      "title": "Evelyn",
+      "type": "character",
+      "content": "Sir Ashworth's late wife. Died of illness seven years before the events of the story. Known for her devotion to the garden and the restoration of the east wing.",
+      "metadata": { "status": "deceased" }
+    },
+    {
+      "id": "kb-robert",
+      "title": "Robert",
+      "type": "character",
+      "content": "Journalist and author. Has been writing a biography of Sir Ashworth and was granted access to the family archive. Idealistic, thorough, occasionally naive about the family's motives."
+    },
+    {
+      "id": "kb-sarah",
+      "title": "Sarah",
+      "type": "character",
+      "content": "Forensic document analyst brought in to authenticate the codicil to Sir Ashworth's will. Professional, detail-oriented, reluctant to speculate beyond her evidence."
+    },
+    {
+      "id": "kb-whitfield",
+      "title": "Whitfield",
+      "type": "character",
+      "content": "Professor of legal history at the University of Bristol. Hired to evaluate Sir Ashworth's private collection of legal documents. Absent-minded, enthusiastic about his subject, unaware of the tensions around him."
+    },
+    {
+      "id": "kb-ravenscroft",
+      "title": "Ravenscroft Manor",
+      "type": "location",
+      "content": "Georgian country house on a limestone ridge above the Wye Valley. Built 1743, extended several times. Forty acres of parkland, formal gardens, chapel. The Ashworth family seat for eight generations."
+    }
+  ],
+  "expectedIssues": [
+    { "descriptionPattern": "lexical-illusion" },
+    { "descriptionPattern": "lexical-illusion" },
+    { "category": "character", "descriptionPattern": "dead-character" },
+    { "category": "character", "descriptionPattern": "dead-character" },
+    { "category": "character", "descriptionPattern": "name-typo|character-name" },
+    { "category": "character", "descriptionPattern": "name-typo|character-name" },
+    { "descriptionPattern": "unattributed" },
+    { "descriptionPattern": "unattributed" },
+    { "descriptionPattern": "overused" },
+    { "descriptionPattern": "overused" },
+    { "descriptionPattern": "punctuation" },
+    { "descriptionPattern": "punctuation" },
+    { "descriptionPattern": "cliche" },
+    { "descriptionPattern": "telling-not-showing" },
+    { "descriptionPattern": "paragraph-wall" }
+  ],
+  "expectedNonIssues": [
+    "Repeated use of 'darkness' in Chapter 9 is the intended seeded issue for overused-word detection — it is NOT an additional false positive",
+    "Repeated use of 'silence' in Chapter 10 is the intended seeded issue for overused-word detection",
+    "Catherine's emotional composure at the end of Chapter 14 is NOT telling-not-showing — it is deliberate characterization through contrast",
+    "The long description in Chapter 15 is the intended seeded issue for paragraph-wall detection"
+  ],
+  "tags": ["synthetic", "positive-example", "en", "recall-test"]
+}
