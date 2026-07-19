@@ -144,7 +144,20 @@ export async function evaluateGuardian(
   const { version = "dev" } = options
   const fixtureResults: FixtureResult[] = []
 
-  for (const fixture of fixtures) {
+  // Fixtures tagged "llm-detector" carry gold labels for detectors that only
+  // exist as LLM calls in the product (e.g. l1.constraint-violation). The
+  // local pattern analyzers can never emit those issues, so scoring them here
+  // would report a zero-recall floor that says nothing about the system.
+  // Skip them loudly; they feed the LLM-detector evaluation path instead.
+  const runnable = fixtures.filter((f) => !(f.tags ?? []).includes("llm-detector"))
+  const skipped = fixtures.length - runnable.length
+  if (skipped > 0) {
+    console.log(
+      `  [guardian] Skipped ${skipped} llm-detector fixture(s) — local analyzers cannot score LLM-only detectors`
+    )
+  }
+
+  for (const fixture of runnable) {
     const result = await evaluateFixture(fixture, options)
     fixtureResults.push(result)
   }

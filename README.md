@@ -8,7 +8,7 @@ Not "does AI write well?" but "can AI **understand** story structure?" — three
 
 | Evaluator | What It Tests | Method |
 |-----------|--------------|--------|
-| **guardian** | Can your system distinguish literary devices from real inconsistencies? | Precision/recall/FPR against annotated false-positive traps |
+| **guardian** | Can your system distinguish literary devices from real inconsistencies — including violations of author-declared world constraints (rules / prohibitions)? | Precision/recall/FPR against annotated false-positive traps |
 | **analysis** | Can it detect literary qualities, character arcs, and causal chains? | Quality detection + arc mapping + causal coverage |
 | **style-prose** | Does it avoid flagging well-written prose as flawed? | False-positive resistance across 5 style detectors |
 | **chapter-suspense** | Can it classify chapter types and measure tension? | Suspense detection + thread coverage + cliffhanger false-positive resistance |
@@ -28,6 +28,25 @@ Each fixture includes:
 - Expected character arcs with beats
 - Expected causal chains
 - False-positive traps (things that should NOT be flagged)
+
+### Guardian v3 sync (2026-07)
+
+The product's Guardian is a 5-layer system (L1 consistency / L2 style & prose /
+L3 analysis / L4 chapter & suspense / L5 plot structure). The local evaluators
+here cover the pattern-matching tiers; detectors that only exist as LLM calls
+ship as annotated gold fixtures instead:
+
+- `fixtures/guardian/world-constraints-{en,zh}.json` — gold cases for
+  `l1.constraint-violation` (author-declared world constraints, i.e.
+  `rule` / `prohibition` entries): three straight violations each, plus
+  literary-device traps that must NOT be flagged (honored rules, dream
+  sequences, spoken intent never acted on, exceptions written into the
+  constraint itself, metaphor).
+- These fixtures carry the `llm-detector` tag and are **skipped by the default
+  `bench guardian` run** — the local analyzers cannot score LLM-only
+  detectors, and pretending otherwise would report a meaningless zero-recall
+  floor. They are input for the LLM-detector evaluation path, which needs an
+  API budget.
 
 ## Quick Start
 
