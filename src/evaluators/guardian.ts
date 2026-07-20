@@ -58,6 +58,9 @@ const STYLE_DETECTOR_META: Record<
   temporal_confusion:     { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "temporal-confusion" },
   dialogue_order:         { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "dialogue-order" },
   adverb_dialogue_tag:    { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "adverb-dialogue-tag" },
+  // guardian-v3 sync (2026-07): ported product l2 locals
+  pacing_rhythm:          { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "pacing-rhythm" },
+  gesture_gloss:          { confidence: "medium", lane: "suggestion", category: "style",       detectorId: "gesture-gloss" },
   info_dump_dialogue:     { confidence: "medium", lane: "suggestion", category: "style",       detectorId: "info-dump-dialogue" },
   purposeless_dialogue:   { confidence: "medium", lane: "suggestion", category: "style",       detectorId: "purposeless-dialogue" },
   verbose_dialogue:       { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "verbose-dialogue" },

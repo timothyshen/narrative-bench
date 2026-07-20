@@ -122,11 +122,19 @@ async function evaluateFixture(fixture: AnalysisFixture, useLLM?: boolean): Prom
     noFalseCliffhanger = genuineWarnings === 0 ? 100 : Math.max(0, 100 - genuineWarnings * 25)
   }
 
+  // 5. No false opening errors (guardian-v3 sync 2026-07, product l4.opening-quality):
+  //    the classifier already computes openingErrors per chapter; masterwork
+  //    openings must not trip fatal-opening heuristics. Same penalty curve as
+  //    the cliffhanger check.
+  const totalOpeningErrors = valid.reduce((sum, c) => sum + c.result!.openingErrors.length, 0)
+  const noFalseOpeningErrors = totalOpeningErrors === 0 ? 100 : Math.max(0, 100 - totalOpeningErrors * 25)
+
   const allScores = {
     classificationSanity,
     suspenseDetection,
     threadCoverage,
     noFalseCliffhanger,
+    noFalseOpeningErrors,
   }
 
   const avgScore = Object.values(allScores).reduce((a, b) => a + b, 0) / Object.keys(allScores).length
@@ -136,12 +144,14 @@ async function evaluateFixture(fixture: AnalysisFixture, useLLM?: boolean): Prom
   const chapterTypes = valid.map(c => c.result!.chapterType)
   const suspenseLevels = valid.map(c => c.result!.suspenseLevel)
   const warningsList = valid.flatMap(c => c.result!.cliffhangerWarnings)
+  const openingErrorsList = valid.flatMap(c => c.result!.openingErrors)
 
   const details = [
     `Types: [${chapterTypes.join(", ")}]`,
     `Suspense: [${suspenseLevels.join(", ")}]`,
     `Threads: main=${threadTotals.main} char=${threadTotals.character} rel=${threadTotals.relationship} temp=${threadTotals.temporal}`,
     warningsList.length > 0 ? `Warnings: ${warningsList.join(", ")}` : "No warnings",
+    openingErrorsList.length > 0 ? `OpeningErrors: ${openingErrorsList.join(", ")}` : "No opening errors",
   ].join(" | ")
 
   return {

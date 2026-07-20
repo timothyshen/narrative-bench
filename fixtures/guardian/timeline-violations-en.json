@@ -1,0 +1,68 @@
+{
+  "id": "timeline-violations-en",
+  "name": "Timeline violations — synthetic (EN)",
+  "description": "Gold cases for the product's l1.timeline-violation detector (guardian-v3 sync 2026-07). Knowledge-base event entries fix the canonical order (mill fire -> trial three days later -> verdict a week after); the chapters contradict it twice and contradict themselves once. Traps: an explicitly framed flashback, a character misremembering aloud, and deliberate foreshadowing must NOT be flagged. Tagged llm-detector: skipped by the default local guardian run.",
+  "locale": "en",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "tv-en-ch1",
+      "title": "The Fire",
+      "content": "The mill burned on the last night of the harvest moon. By the time the bucket line formed, the roof was already gone, and Old Wexley stood in the wet grass watching forty years of his life go up in sparks.\n\nJudge Corvin arrived from the county seat three days later, as the law required, and the trial of Tam Ashe began in the grain-weighing hall — the only roofed building large enough to hold half the town.\n\nMara sat in the back row and remembered, briefly and vividly, the summer she and Tam had hidden in that same mill as children, the air gold with chaff. That was fifteen years gone. The memory closed like a door, and she was back among the murmuring rows, watching Tam's bound hands.",
+      "orderIndex": 1
+    },
+    {
+      "id": "tv-en-ch2",
+      "title": "Testimony",
+      "content": "\"You have it wrong,\" Wexley said from the stand, waving his stick. \"The trial started the very morning after my mill burned. I remember it clear as glass.\" The clerk gently corrected him — the record showed three days had passed — and Wexley subsided, muttering that his memory was not what it was.\n\nThe morning after the fire, the trial opened with the reading of the charges, and Tam Ashe stood to hear them in the grain-weighing hall.\n\nMara testified in the afternoon. She kept her eyes on the judge and her voice level, and she did not look at Tam once. Something in her chest said that the verdict, whenever it came, would not be the end of this — that the true reckoning would come later, in winter, when the river froze.",
+      "orderIndex": 2
+    },
+    {
+      "id": "tv-en-ch3",
+      "title": "The Verdict",
+      "content": "The verdict had been read a week after the trial closed, exactly as the county custom required, and the town had gone quiet under it.\n\nTam Ashe walked out of the grain-weighing hall a condemned man, and the first snow of the year caught in his hair.\n\nAnd yet the trial had not begun. The benches stood empty in the weighing hall, the charges still sealed in the clerk's box, and Judge Corvin's coach was only now rattling over the north bridge into town.",
+      "orderIndex": 3
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "id": "tv-en-kb-fire",
+      "title": "The mill fire",
+      "type": "event",
+      "content": "Wexley's mill burns down on the last night of the harvest moon. Established as the inciting event; everything else is dated relative to it."
+    },
+    {
+      "id": "tv-en-kb-trial",
+      "title": "The trial of Tam Ashe",
+      "type": "event",
+      "content": "Begins three days after the mill fire, when Judge Corvin arrives from the county seat. Held in the grain-weighing hall."
+    },
+    {
+      "id": "tv-en-kb-verdict",
+      "title": "The verdict",
+      "type": "event",
+      "content": "Read one week after the trial closes, per county custom."
+    },
+    {
+      "id": "tv-en-kb-mara",
+      "title": "Mara",
+      "type": "character",
+      "content": "A witness at the trial; childhood friend of the accused, Tam Ashe."
+    }
+  ],
+  "expectedIssues": [
+    {
+      "descriptionPattern": "morning after the fire|trial.{0,60}(?:began|opened|started).{0,60}(?:morning|day) after"
+    },
+    {
+      "descriptionPattern": "verdict.{0,80}trial had not begun|trial had not begun"
+    }
+  ],
+  "expectedNonIssues": [
+    "Chapter 1: Mara's memory of hiding in the mill fifteen years earlier is an explicitly framed flashback ('That was fifteen years gone') — narrative anachrony, not a timeline violation.",
+    "Chapter 2: Wexley CLAIMING on the stand that the trial started the morning after the fire is a character misremembering, corrected on the page by the clerk — the narration itself does not assert it. A character being wrong is not an authorial timeline error.",
+    "Chapter 2: Mara's premonition that 'the true reckoning would come later, in winter' is deliberate foreshadowing of future events, not a sequencing error.",
+    "Chapter 1: the trial beginning three days after the fire MATCHES the canonical event order — it must not be flagged."
+  ],
+  "tags": ["synthetic", "timeline-violation", "llm-detector", "en", "recall-test", "guardian-v3-sync"]
+}

@@ -44,6 +44,8 @@ import {
   detectModifierChain,
   detectTellingNotShowing,
   detectBackgroundOverload,
+  detectPacingRhythm,
+  detectGestureGloss,
 } from "./prose-detectors"
 
 // ── POV leak detector ──
@@ -64,6 +66,8 @@ export {
   detectModifierChain,
   detectTellingNotShowing,
   detectBackgroundOverload,
+  detectPacingRhythm,
+  detectGestureGloss,
   detectPOVLeak,
 }
 
@@ -136,6 +140,9 @@ const TIER_2_DETECTORS: DetectorFn[] = [
   detectModifierChain,
   detectTellingNotShowing,
   detectBackgroundOverload,
+  // guardian-v3 sync (2026-07): product l2.pacing-rhythm + l2.gesture-gloss
+  detectPacingRhythm,
+  detectGestureGloss,
 ]
 
 /**

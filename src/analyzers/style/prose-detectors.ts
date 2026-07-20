@@ -448,3 +448,162 @@ export function detectBackgroundOverload(
       : `${pct}% of the opening is exposition — reveal background through action and dialogue`,
   }]
 }
+
+// ══════════════════════════════════════════════════════════
+// Pacing Rhythm (ported from the product's l2.pacing-rhythm, guardian-v3 sync 2026-07)
+// ══════════════════════════════════════════════════════════
+
+/**
+ * Detect pacing problems from paragraph-length runs and dialogue density:
+ * long runs of very short paragraphs (breathless), runs of very long
+ * paragraphs (dragging), and talking-heads chapters (>=75% dialogue).
+ */
+export function detectPacingRhythm(
+  text: string,
+  locale: string,
+): PartialIssue[] {
+  const issues: PartialIssue[] = []
+  const isCJK = resolveIsCJK(locale, text)
+
+  let paragraphs = text.split(/\n\n+/).filter(p => p.trim().length > 0)
+  if (paragraphs.length <= 1) {
+    paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0)
+  }
+  if (paragraphs.length < 6) return issues
+
+  const lengthOf = (para: string): number =>
+    isCJK
+      ? [...para].filter(c => /[一-鿿]/.test(c)).length
+      : para.split(/\s+/).filter(w => w.length > 0).length
+
+  const shortThreshold = isCJK ? 30 : 15
+  const longThreshold = isCJK ? 200 : 120
+
+  // ── Pacing runs ──────────────────────────────────────────────
+  let shortRun = 0
+  let longRun = 0
+  let worstShortRun = { count: 0, startIdx: 0 }
+  let worstLongRun = { count: 0, startIdx: 0 }
+
+  paragraphs.forEach((p, i) => {
+    const len = lengthOf(p)
+    if (len < shortThreshold) {
+      shortRun++
+      longRun = 0
+      if (shortRun > worstShortRun.count) {
+        worstShortRun = { count: shortRun, startIdx: i - shortRun + 1 }
+      }
+    } else if (len >= longThreshold) {
+      longRun++
+      shortRun = 0
+      if (longRun > worstLongRun.count) {
+        worstLongRun = { count: longRun, startIdx: i - longRun + 1 }
+      }
+    } else {
+      shortRun = 0
+      longRun = 0
+    }
+  })
+
+  if (worstShortRun.count >= 5) {
+    const preview = (paragraphs[worstShortRun.startIdx] || "").slice(0, 50)
+    issues.push({
+      type: "pacing_rhythm",
+      severity: worstShortRun.count >= 8 ? "medium" : "low",
+      location: `${worstShortRun.count} short paragraphs starting near "${preview}..."`,
+      suggestion: isCJK
+        ? `连续 ${worstShortRun.count} 段过短，节奏过快 — 适合动作段落，普通叙事可合并一些短句增加呼吸感`
+        : `${worstShortRun.count} very short paragraphs in a row — fine for action, but consider merging in normal narration to give the reader room to breathe`,
+    })
+  }
+
+  if (worstLongRun.count >= 3) {
+    const preview = (paragraphs[worstLongRun.startIdx] || "").slice(0, 50)
+    issues.push({
+      type: "pacing_rhythm",
+      severity: worstLongRun.count >= 5 ? "medium" : "low",
+      location: `${worstLongRun.count} long paragraphs starting near "${preview}..."`,
+      suggestion: isCJK
+        ? `连续 ${worstLongRun.count} 段偏长，读者注意力易流失 — 考虑在转场或情绪变化处分段`
+        : `${worstLongRun.count} long paragraphs in a row can drag — break at emotional shifts or scene transitions`,
+    })
+  }
+
+  // ── Dialogue ratio ───────────────────────────────────────────
+  const dialogueQuotePattern = isCJK ? /[「」『』]/ : /^\s*["“”]/
+  const dialogueParagraphs = paragraphs.filter(p => dialogueQuotePattern.test(p))
+  const ratio = dialogueParagraphs.length / paragraphs.length
+
+  if (ratio >= 0.75 && paragraphs.length >= 10) {
+    issues.push({
+      type: "pacing_rhythm",
+      severity: "low",
+      location: `${Math.round(ratio * 100)}% of paragraphs are dialogue`,
+      suggestion: isCJK
+        ? `章节 ${Math.round(ratio * 100)}% 的段落是对话 — 适度穿插动作、内心活动或环境描写能提升沉浸感`
+        : `${Math.round(ratio * 100)}% of paragraphs are dialogue — interleave action, inner thought, or setting to avoid a 'talking-heads' feel`,
+    })
+  }
+
+  return issues
+}
+
+// ── Gesture gloss (ported from the product's l2.gesture-gloss, guardian-v3 sync 2026-07) ──
+// A hallmark AI-prose tic (5A.6, anti-AI): a gesture/action followed by an interpretive clause that
+// SPELLS OUT its meaning instead of trusting the reader — "She set the cup down, as if she'd already
+// decided to leave." / "He nodded, like someone used to being obeyed." A single use is fine; the
+// TIC is the overuse, so flag on repetition (the flaw-pattern logic). Local + deterministic.
+const EN_GLOSS_PATTERNS: ReadonlyArray<RegExp> = [
+  /,\s+as\s+if\b/gi,
+  /,\s+as\s+though\b/gi,
+  /,\s+like\s+(?:someone|somebody)\b/gi,
+]
+const CJK_GLOSS_PATTERN = /[，,]\s*(?:仿佛|好像|似乎|宛如|恍若|像是)/g
+const GLOSS_MIN_COUNT = 3
+
+/**
+ * Raw count of gesture-gloss constructions (no threshold) + the offset of the first one. Exposed so
+ * an experiment can measure the construction RATE — e.g. plain generation vs a structured-output
+ * "reinforcement" field that commits the model to dropping the interpretive clause before it writes.
+ */
+export function countGestureGloss(text: string, locale: string): { count: number; firstAt: number } {
+  const isCJK = resolveIsCJK(locale, text)
+  const narration = stripDialogue(text)
+  let count = 0
+  let firstAt = -1
+  if (isCJK) {
+    for (const m of narration.matchAll(CJK_GLOSS_PATTERN)) {
+      count += 1
+      if (firstAt < 0) firstAt = m.index ?? -1
+    }
+  } else {
+    for (const pattern of EN_GLOSS_PATTERNS) {
+      for (const m of narration.matchAll(pattern)) {
+        count += 1
+        if (firstAt < 0 || (m.index ?? Infinity) < firstAt) firstAt = m.index ?? -1
+      }
+    }
+  }
+  return { count, firstAt }
+}
+
+export function detectGestureGloss(text: string, locale: string): PartialIssue[] {
+  const isCJK = resolveIsCJK(locale, text)
+  const { count, firstAt } = countGestureGloss(text, locale)
+
+  if (count < GLOSS_MIN_COUNT) return []
+  const narration = stripDialogue(text)
+  const sample = firstAt >= 0 ? extractContext(narration, firstAt, firstAt + 60) : ""
+  return [
+    {
+      type: "gesture_gloss",
+      severity: count >= 5 ? "medium" : "low",
+      location: isCJK
+        ? `"动作 + 仿佛/好像…"的解释式从句在本章出现 ${count} 次,例如:${sample}`
+        : `the "gesture, as if/like…" interpretive clause recurs ${count} times, e.g. ${sample}`,
+      suggestion: isCJK
+        ? `反复用"…,仿佛/好像…"把动作的含义直接说穿,会削弱信任感——多数地方让动作自己说话,删去解释从句`
+        : `the "gesture, as if/like…" construction spells out a gesture's meaning instead of trusting the reader — a hallmark AI tell; cut the interpretive clause in most places and let the action stand`,
+    },
+  ]
+}
