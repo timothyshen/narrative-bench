@@ -1,20 +1,20 @@
 {
   "id": "proofread-zh",
   "name": "校对 — 合成用例（中文）",
-  "description": "产品 l2.proofread 检测器的金标用例（guardian-v3 同步 2026-07）。正文埋入无争议的机械错误（的/得混用、账/帐错字、重复字、量词误用）；陷阱是不得\"改正\"的刻意用法：对话内的角色口癖、文言引文、设定内专名写法、刻意的断句。带 llm-detector 标签：默认本地 guardian 跑分跳过。",
+  "description": "产品 l2.proofread 检测器的金标用例（guardian-v3 同步 2026-07）。正文埋入无争议的机械错误（的/得混用、账/帐错字、重复字）；陷阱是不得\"改正\"的刻意用法：对话内的角色口癖、文言引文、设定内专名写法、刻意的断句。带 llm-detector 标签：默认本地 guardian 跑分跳过。",
   "locale": "zh",
   "contentType": "novel",
   "chapters": [
     {
       "id": "pf-zh-ch1",
       "title": "账房",
-      "content": "柳掌柜的帐本摊在桌上,墨迹未干。阿芜替他把今日的流水誊得工整,一笔一笔核的仔细,不敢有半分差错。\n\n门外进来个跑堂的,嗓门粗:\"掌柜滴,西街王家要赊两匹布,你看成不成嘛?\"他是川里人,十几年改不掉这口音,铺子里人人听惯了。\n\n柳掌柜摆摆手,又低头看账。墙上挂着他早年请人写的一幅字:\"业精于勤,荒于嬉;行成于思,毁于随。\"字是好字,他看了十年。",
+      "content": "柳掌柜的帐本摊在桌上，墨迹未干。阿芜替他把今日的流水誊得工整，一笔一笔核的仔细，不敢有半分差错。\n\n门外进来个跑堂的，嗓门粗：「掌柜滴，西街王家要赊两匹布，你看成不成嘛？」他是川里人，十几年改不掉这口音，铺子里人人听惯了。\n\n柳掌柜摆摆手，又低头看账。墙上挂着他早年请人写的一幅字：「业精于勤，荒于嬉；行成于思，毁于随。」字是好字，他看了十年。",
       "orderIndex": 1
     },
     {
       "id": "pf-zh-ch2",
       "title": "夜雨",
-      "content": "夜里落雨,阿芜把最后一一笔账记完,吹了灯。\n\n黑。屋里真黑。她摸着墙根走到窗边,听雨。\n\n窗外的青石板路被雨水洗得发亮,一个人影撑着伞从桥头过来,走得极慢。阿芜数着他的脚步,数到第七步的时候,那人在铺子门口停了下来,收了伞,敲了三下门。",
+      "content": "夜里落雨，阿芜把最后一一笔账记完，吹了灯。\n\n黑。屋里真黑。她摸着墙根走到窗边，听雨。\n\n窗外的青石板路被雨水洗得发亮，一个人影撑着伞从桥头过来，走得极慢。阿芜数着他的脚步，数到第七步的时候，那人在铺子门口停了下来，收了伞，敲了三下门。",
       "orderIndex": 2
     }
   ],
@@ -23,13 +23,13 @@
       "id": "pf-zh-kb-awu",
       "title": "阿芜",
       "type": "character",
-      "content": "柳掌柜铺子里的帮工,识字,替掌柜记账誊写。"
+      "content": "柳掌柜铺子里的帮工，识字，替掌柜记账誊写。"
     },
     {
       "id": "pf-zh-kb-paotang",
       "title": "跑堂的",
       "type": "character",
-      "content": "铺子里的伙计,川音重,口癖\"掌柜滴\"\"成不成嘛\"——刻意的方言塑造,不是笔误。"
+      "content": "铺子里的伙计，川音重，口癖「掌柜滴」「成不成嘛」——刻意的方言塑造，不是笔误。"
     },
     {
       "id": "pf-zh-kb-liu",
@@ -40,12 +40,21 @@
   ],
   "expectedIssues": [
     {
+      "chapterId": "pf-zh-ch1",
+      "detectorId": "l2.proofread",
+      "substring": "柳掌柜的帐本摊在桌上",
       "descriptionPattern": "帐本|帐.{0,10}账"
     },
     {
-      "descriptionPattern": "核的仔细|的.{0,10}得"
+      "chapterId": "pf-zh-ch1",
+      "detectorId": "l2.proofread",
+      "substring": "一笔一笔核的仔细",
+      "descriptionPattern": "核的仔细"
     },
     {
+      "chapterId": "pf-zh-ch2",
+      "detectorId": "l2.proofread",
+      "substring": "最后一一笔账记完",
       "descriptionPattern": "一一笔"
     }
   ],
@@ -55,5 +64,12 @@
     "第二章：'黑。屋里真黑。'是刻意的短句断句,是风格不是残句。",
     "第一章：'誊得工整'的'得'用法正确,与同句被埋的'核的仔细'（应为'核得仔细'）形成对照——正确处不得误标。"
   ],
-  "tags": ["synthetic", "proofread", "llm-detector", "zh", "recall-test", "guardian-v3-sync"]
+  "tags": [
+    "synthetic",
+    "proofread",
+    "llm-detector",
+    "zh",
+    "recall-test",
+    "guardian-v3-sync"
+  ]
 }

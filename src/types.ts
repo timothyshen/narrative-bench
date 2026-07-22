@@ -131,9 +131,18 @@ export interface GuardianFixture {
 }
 
 export interface ExpectedIssue {
-  category: string
-  severity: "error" | "warning" | "info"
+  /** Optional in practice since the first fixtures; the matcher only checks when present. */
+  category?: string
+  severity?: "error" | "warning" | "info"
   descriptionPattern: string
+  /** Structured annotation (guardian-v3 sync 2026-07) — the shape the product's
+   * cassette-based LLM-detector harness consumes (its BenchExpectation seam):
+   * which chapter the violation lives in, which detector should catch it, and
+   * the exact in-text substring of the violating passage. Optional so legacy
+   * fixtures stay valid; all llm-detector fixtures carry them. */
+  chapterId?: string
+  detectorId?: string
+  substring?: string
 }
 
 // ============================================================

@@ -1,20 +1,20 @@
 {
   "id": "proofread-en",
   "name": "Proofreading — synthetic (EN)",
-  "description": "Gold cases for the product's l2.proofread detector (guardian-v3 sync 2026-07). Chapters seed unambiguous mechanical errors (its/it's, their/there, a doubled word, subject-verb disagreement); traps are deliberate non-standard usage that a proofreader must NOT correct: dialect inside quoted dialogue, a stream-of-consciousness passage, an in-world proper-noun spelling, and an intentional sentence fragment. Tagged llm-detector: skipped by the default local guardian run.",
+  "description": "Gold cases for the product's l2.proofread detector (guardian-v3 sync 2026-07). Chapters seed unambiguous mechanical errors (its/it's, their/they’re, a doubled word, subject-verb disagreement); traps are deliberate non-standard usage that a proofreader must NOT correct: dialect inside quoted dialogue, a stream-of-consciousness passage, an in-world proper-noun spelling, and an intentional sentence fragment. Tagged llm-detector: skipped by the default local guardian run.",
   "locale": "en",
   "contentType": "novel",
   "chapters": [
     {
       "id": "pf-en-ch1",
       "title": "The Letter",
-      "content": "The letter arrived on a Tuesday, and Maren knew before she opened it that it's contents would change everything. The wax seal bore the crest of House Vairre — two herons over a broken crown — a spelling the family had kept, stubbornly, since the old kingdom fell.\n\n\"Ain't nothin' good ever come up that road,\" said old Tam from his bench by the door. \"You mark me, girl. Nothin' good.\"\n\nMaren read the the letter twice, folded it, and put it in her apron pocket. Cold. The kitchen was cold. She had not noticed until now.",
+      "content": "The letter arrived on a Tuesday, and Maren knew before she opened it that it's contents would change everything. The wax seal bore the crest of House Vairre — two herons over a broken crown. The name was spelled with the double r the family had kept, stubbornly, since the old kingdom fell.\n\n\"Ain't nothin' good ever come up that road,\" said old Tam from his bench by the door. \"You mark me, girl. Nothin' good.\"\n\nMaren read the the letter twice, folded it, and put it in her apron pocket. Cold. The kitchen was cold. She had not noticed until now.",
       "orderIndex": 1
     },
     {
       "id": "pf-en-ch2",
       "title": "The Road",
-      "content": "The horses was saddled before dawn, and they took the north road while the mist still held.\n\nMaren rode without speaking. What filled her head would not go into sentences — road smell wet leaves her mother's hands the seal two herons why herons why now the crown broken who broke it — and she let it run, the way you let a river run, because damming it was worse.\n\nBy noon they could see the towers of Vairre Keep, and Tam pointed with his chin. \"Their waiting for us at the gate,\" he said quietly. \"Three riders. See them?\"",
+      "content": "The horses was saddled before dawn, and Maren and Tam took the north road while the mist still held.\n\nMaren rode without speaking. What filled her head would not go into sentences — road smell wet leaves her mother's hands the seal two herons why herons why now the crown broken who broke it — and she let it run, the way you let a river run, because damming it was worse.\n\nBy noon they could see the towers of Vairre Keep, and Maren pointed with her chin. \"Their waiting for us at the gate,\" she said quietly. \"Three riders. See them?\"",
       "orderIndex": 2
     }
   ],
@@ -40,15 +40,27 @@
   ],
   "expectedIssues": [
     {
+      "chapterId": "pf-en-ch1",
+      "detectorId": "l2.proofread",
+      "substring": "it's contents",
       "descriptionPattern": "it's contents|it.?s.{0,15}should be.{0,10}its"
     },
     {
+      "chapterId": "pf-en-ch1",
+      "detectorId": "l2.proofread",
+      "substring": "read the the letter",
       "descriptionPattern": "the the"
     },
     {
+      "chapterId": "pf-en-ch2",
+      "detectorId": "l2.proofread",
+      "substring": "The horses was saddled",
       "descriptionPattern": "horses was|was.{0,15}should be.{0,10}were"
     },
     {
+      "chapterId": "pf-en-ch2",
+      "detectorId": "l2.proofread",
+      "substring": "Their waiting for us at the gate",
       "descriptionPattern": "Their waiting|their.{0,20}they.?re"
     }
   ],
@@ -58,5 +70,12 @@
     "Chapter 1: 'Cold. The kitchen was cold.' is an intentional sentence fragment for effect — not a grammar error to fix.",
     "Chapter 2: the unpunctuated run 'road smell wet leaves her mother's hands…' is a framed stream-of-consciousness passage ('she let it run') — deliberate style, not missing punctuation."
   ],
-  "tags": ["synthetic", "proofread", "llm-detector", "en", "recall-test", "guardian-v3-sync"]
+  "tags": [
+    "synthetic",
+    "proofread",
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync"
+  ]
 }

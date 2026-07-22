@@ -53,10 +53,14 @@ the LLM-detector evaluation path, which needs an API budget):
   spoken-intent / in-constraint-exception / metaphor traps.
 - `timeline-violations-{en,zh}.json` — `l1.timeline-violation`: chapters
   contradicting the canonical event order fixed by KB `event` entries, plus
-  flashback / character-misremembering / foreshadowing traps.
+  flashback / character-misremembering / foreshadowing traps. *Tagged
+  `proposed-detector`: the shipped product detector is a marker-frequency
+  heuristic; no shipped code implements these semantics yet (see gap doc).*
 - `entity-contradictions-{en,zh}.json` — `l1.entity-contradiction`: prose
   contradicting canonical entity facts, plus perception-under-light /
-  in-world-change / hearsay / alias / metaphor traps.
+  in-world-change / hearsay / alias / metaphor traps. *Tagged
+  `proposed-detector`: the shipped detector reasons over `relations[]`, a
+  different input universe (see gap doc).*
 - `proofread-{en,zh}.json` — `l2.proofread`: seeded mechanical errors, plus
   dialect-in-dialogue / classical-quotation / in-world-spelling /
   intentional-fragment traps.

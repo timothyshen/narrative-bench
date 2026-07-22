@@ -1,7 +1,7 @@
 {
   "id": "timeline-violations-en",
   "name": "Timeline violations — synthetic (EN)",
-  "description": "Gold cases for the product's l1.timeline-violation detector (guardian-v3 sync 2026-07). Knowledge-base event entries fix the canonical order (mill fire -> trial three days later -> verdict a week after); the chapters contradict it twice and contradict themselves once. Traps: an explicitly framed flashback, a character misremembering aloud, and deliberate foreshadowing must NOT be flagged. Tagged llm-detector: skipped by the default local guardian run.",
+  "description": "Gold cases for the product's l1.timeline-violation detector (guardian-v3 sync 2026-07). Knowledge-base event entries fix the canonical order (mill fire -> trial three days later -> verdict a week after); the chapters contradict it twice and contradict themselves once. Traps: an explicitly framed flashback, a character misremembering aloud, and deliberate foreshadowing must NOT be flagged. Tagged llm-detector: skipped by the default local guardian run. Labeling convention: one expectedIssue per violation SITE (the ch3 self-contradiction is one site even though it clashes with multiple anchors). NOTE (2026-07-20 review): the product's SHIPPED l1.timeline-violation is a local temporal-marker heuristic that never compares narrative against canonical event order — these are gold labels for the semantics the catalog names but no shipped detector implements; see docs/guardian-v3-coverage-gap.md.",
   "locale": "en",
   "contentType": "novel",
   "chapters": [
@@ -52,10 +52,16 @@
   ],
   "expectedIssues": [
     {
-      "descriptionPattern": "morning after the fire|trial.{0,60}(?:began|opened|started).{0,60}(?:morning|day) after"
+      "chapterId": "tv-en-ch2",
+      "detectorId": "l1.timeline-violation",
+      "substring": "the trial opened with the reading of the charges",
+      "descriptionPattern": "morning after the fire.{0,80}(?:trial opened|reading of the charges)|(?:trial opened|reading of the charges).{0,80}morning after"
     },
     {
-      "descriptionPattern": "verdict.{0,80}trial had not begun|trial had not begun"
+      "chapterId": "tv-en-ch3",
+      "detectorId": "l1.timeline-violation",
+      "substring": "And yet the trial had not begun",
+      "descriptionPattern": "trial ha[sd] not (?:yet )?begun|not yet begun|verdict.{0,80}before the trial"
     }
   ],
   "expectedNonIssues": [
@@ -64,5 +70,13 @@
     "Chapter 2: Mara's premonition that 'the true reckoning would come later, in winter' is deliberate foreshadowing of future events, not a sequencing error.",
     "Chapter 1: the trial beginning three days after the fire MATCHES the canonical event order — it must not be flagged."
   ],
-  "tags": ["synthetic", "timeline-violation", "llm-detector", "en", "recall-test", "guardian-v3-sync"]
+  "tags": [
+    "synthetic",
+    "timeline-violation",
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync",
+    "proposed-detector"
+  ]
 }

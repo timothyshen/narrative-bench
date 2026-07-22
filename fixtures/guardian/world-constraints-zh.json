@@ -78,13 +78,22 @@
   ],
   "expectedIssues": [
     {
-      "descriptionPattern": "子时引气"
+      "chapterId": "wc-zh-ch1",
+      "detectorId": "l1.constraint-violation",
+      "substring": "强行引气入体",
+      "descriptionPattern": "(?=[\\s\\S]*?子时引气)(?=[\\s\\S]*?(?:未时|强行引气|无半分滞涩))"
     },
     {
-      "descriptionPattern": "剑冢之禁"
+      "chapterId": "wc-zh-ch2",
+      "detectorId": "l1.constraint-violation",
+      "substring": "他翻过了界碑",
+      "descriptionPattern": "(?=[\\s\\S]*?剑冢之禁)(?=[\\s\\S]*?(?:翻过|界碑))"
     },
     {
-      "descriptionPattern": "山门夜禁"
+      "chapterId": "wc-zh-ch3",
+      "detectorId": "l1.constraint-violation",
+      "substring": "抬手一推——门开了",
+      "descriptionPattern": "(?=[\\s\\S]*?山门夜禁)(?=[\\s\\S]*?(?:周岚|推开|亥时三刻已过))"
     }
   ],
   "expectedNonIssues": [
@@ -95,5 +104,12 @@
     "第三章：掌门持剑主血契解约，行使的是「灵剑认主」条文内写明的例外（唯持血契者可解），不是违反。",
     "第三章：周岚那句'人心里都有一座剑冢，谁都进不去'是比喻，不是踏入剑冢。"
   ],
-  "tags": ["synthetic", "constraint-violation", "llm-detector", "zh", "recall-test", "guardian-v3-sync"]
+  "tags": [
+    "synthetic",
+    "constraint-violation",
+    "llm-detector",
+    "zh",
+    "recall-test",
+    "guardian-v3-sync"
+  ]
 }

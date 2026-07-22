@@ -8,7 +8,7 @@
     {
       "id": "wc-en-ch1",
       "title": "The Toll and the Door",
-      "content": "The gatekeeper at the Veilgate held out a gloved palm before Mara had finished climbing the last stair. She had come prepared. The iron token her mother had carried for thirty years went into that palm without a word, and the gate swung inward on hinges that made no sound at all.\n\nHarrow House waited beyond the mist like a held breath. Mara counted the windows twice and got different numbers each time.\n\nShe found the first warded door at the end of the east corridor — black oak crossed with silver, the Harrow crest burned into the grain. Mara was no Harrow. Her family had scrubbed these floors for three generations, and not one drop of that blood ran in her. She carried no seal, no writ, nothing but a dead woman's iron and her own stubbornness.\n\nShe pressed her palm flat against the crest.\n\nThe door opened.\n\nIt did not groan or resist or demand anything of her. It simply swung wide, as if it had been waiting, and the cold air of the sealed wing spilled out over her boots. Mara stood on the threshold a long moment, listening to her own heartbeat, before she stepped through.",
+      "content": "The gatekeeper at the Veilgate held out a gloved palm before Mara had finished climbing the last stair. She had come prepared. One of the two iron tokens her mother had carried for thirty years went into that palm without a word, and the gate swung inward on hinges that made no sound at all.\n\nHarrow House waited beyond the mist like a held breath. Mara counted the windows twice and got different numbers each time.\n\nShe found the first warded door at the end of the east corridor — black oak crossed with silver, the Harrow crest burned into the grain. Mara was no Harrow. Her family had scrubbed these floors for three generations, and not one drop of that blood ran in her. She carried no seal, no writ, nothing but a dead woman's iron and her own stubbornness.\n\nShe pressed her palm flat against the crest.\n\nThe door opened.\n\nIt did not groan or resist or demand anything of her. It simply swung wide, as if it had been waiting, and the cold air of the sealed wing spilled out over her boots. Mara stood on the threshold a long moment, listening to her own heartbeat, before she stepped through.",
       "orderIndex": 1
     },
     {
@@ -78,13 +78,22 @@
   ],
   "expectedIssues": [
     {
-      "descriptionPattern": "Blood Locks?"
+      "chapterId": "wc-en-ch1",
+      "detectorId": "l1.constraint-violation",
+      "substring": "She pressed her palm flat against the crest",
+      "descriptionPattern": "(?=[\\s\\S]*?Blood Locks?)(?=[\\s\\S]*?(?:Mara|palm|no Harrow|not of Harrow))"
     },
     {
-      "descriptionPattern": "Sanctum Silence"
+      "chapterId": "wc-en-ch2",
+      "detectorId": "l1.constraint-violation",
+      "substring": "he spoke aloud",
+      "descriptionPattern": "(?=[\\s\\S]*?Sanctum Silence)(?=[\\s\\S]*?(?:Alden|spoke aloud|river took))"
     },
     {
-      "descriptionPattern": "Never After Dark"
+      "chapterId": "wc-en-ch3",
+      "detectorId": "l1.constraint-violation",
+      "substring": "untied the rope, and poled them across",
+      "descriptionPattern": "(?=[\\s\\S]*?Never After Dark)(?=[\\s\\S]*?(?:untied|two hours after nightfall|held out))"
     }
   ],
   "expectedNonIssues": [
@@ -94,5 +103,12 @@
     "Chapter 3: Tobias's threat to shout in the Sanctum is spoken intent that is never carried out ('He never went') — no violation occurred.",
     "Chapter 3: the Warden's clerk opening the warded door with the Warden's seal exercises the exception written into Blood Locks itself — the rule allows a seal-bearer."
   ],
-  "tags": ["synthetic", "constraint-violation", "llm-detector", "en", "recall-test", "guardian-v3-sync"]
+  "tags": [
+    "synthetic",
+    "constraint-violation",
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync"
+  ]
 }

@@ -1,7 +1,7 @@
 {
   "id": "entity-contradictions-en",
   "name": "Entity field contradictions — synthetic (EN)",
-  "description": "Gold cases for the product's l1.entity-contradiction detector (guardian-v3 sync 2026-07). Knowledge-base entries fix canonical entity facts (Elara's green eyes; the two-storey Gilded Swan; Bram's lost right arm); the chapters contradict them. Traps: perception under unusual light, an in-world renovation explicitly narrated, metaphor, and an alias must NOT be flagged. Tagged llm-detector: skipped by the default local guardian run.",
+  "description": "Gold cases for the product's l1.entity-contradiction detector (guardian-v3 sync 2026-07). Knowledge-base entries fix canonical entity facts (Elara's green eyes; the two-storey Gilded Swan; Bram's lost right arm); the chapters contradict them. Traps: perception under unusual light, an in-world renovation explicitly narrated, metaphor, and an alias must NOT be flagged. Tagged llm-detector: skipped by the default local guardian run. NOTE (2026-07-20 review): the product's SHIPPED l1.entity-contradiction runs symbolic closure over relations[] — these KB-field-vs-prose cases target the catalog's named semantics (and overlap l1.character-inconsistency's KB half), not the shipped detector; see docs/guardian-v3-coverage-gap.md.",
   "locale": "en",
   "contentType": "novel",
   "chapters": [
@@ -46,9 +46,15 @@
   ],
   "expectedIssues": [
     {
+      "chapterId": "ec-en-ch2",
+      "detectorId": "l1.entity-contradiction",
+      "substring": "her brown eyes fixed on him steadily",
       "descriptionPattern": "brown eyes"
     },
     {
+      "chapterId": "ec-en-ch3",
+      "detectorId": "l1.entity-contradiction",
+      "substring": "gripped one in each hand",
       "descriptionPattern": "each hand|two tankards|both hands"
     }
   ],
@@ -58,5 +64,13 @@
     "Chapter 3: 'the Swan wrapping its wings around them' is metaphor, not a claim about the building.",
     "Chapter 1: calling the inn 'the Old Bird' uses an alias recorded in the KB entry — an alternate name is not a contradiction."
   ],
-  "tags": ["synthetic", "entity-contradiction", "llm-detector", "en", "recall-test", "guardian-v3-sync"]
+  "tags": [
+    "synthetic",
+    "entity-contradiction",
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync",
+    "proposed-detector"
+  ]
 }

@@ -488,6 +488,7 @@ function inferDetectorFromExpected(exp: ExpectedIssue): string {
     "dialogue-order", "adverb-dialogue-tag", "info-dump-dialogue", "purposeless-dialogue",
     "verbose-dialogue", "sentence-monotony", "paragraph-wall", "modifier-chain",
     "telling-not-showing", "background-overload", "pov-leak",
+    "pacing-rhythm", "gesture-gloss",
     "dead-character-appearance", "character-name-typo",
   ]
 

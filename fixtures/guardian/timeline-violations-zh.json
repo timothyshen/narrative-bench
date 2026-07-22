@@ -1,7 +1,7 @@
 {
   "id": "timeline-violations-zh",
   "name": "时序违反 — 合成用例（中文）",
-  "description": "产品 l1.timeline-violation 检测器的金标用例（guardian-v3 同步 2026-07）。知识库事件条目钉死正典时序（初九外门考核 -> 三日后宗门大比 -> 大比后翌日放榜）；正文两处与之矛盾、一处自相矛盾。陷阱：明确标注的回忆段、角色转述的错误时序（传闻）、梦境预兆不得标记。带 llm-detector 标签：默认本地 guardian 跑分跳过。",
+  "description": "产品 l1.timeline-violation 检测器的金标用例（guardian-v3 同步 2026-07）。知识库事件条目钉死正典时序（初九外门考核 -> 三日后宗门大比 -> 大比后翌日放榜）；正文两处与之矛盾、一处自相矛盾。陷阱：明确标注的回忆段、角色转述的错误时序（传闻）、梦境预兆不得标记。带 llm-detector 标签：默认本地 guardian 跑分跳过。 标注约定：每个违反\"现场\"一条 expectedIssue（第三章自相矛盾虽与多个锚点冲突，计一处）。评审注记(2026-07-20)：产品线上 l1.timeline-violation 实为本地时间词启发式，并不对照正典事件顺序——本 fixture 是 catalog 命名语义的金标，线上尚无检测器实现之；见 docs/guardian-v3-coverage-gap.md。",
   "locale": "zh",
   "contentType": "novel",
   "chapters": [
@@ -52,9 +52,15 @@
   ],
   "expectedIssues": [
     {
-      "descriptionPattern": "放榜|榜已放.{0,20}比.{0,10}未开"
+      "chapterId": "tv-zh-ch2",
+      "detectorId": "l1.timeline-violation",
+      "substring": "榜已放了，比还未开",
+      "descriptionPattern": "榜已放.{0,20}比.{0,10}未开|放榜.{0,20}(?:先于|早于).{0,10}大比|大比.{0,6}之前.{0,15}放榜"
     },
     {
+      "chapterId": "tv-zh-ch3",
+      "detectorId": "l1.timeline-violation",
+      "substring": "初九的外门考核才在演武场开考",
       "descriptionPattern": "翌日.{0,30}考核|考核.{0,40}(?:又|才).{0,10}开考"
     }
   ],
@@ -64,5 +70,13 @@
     "第三章：梦见'一年后的自己'是梦境预兆（醒来一段明确收束），属于预叙手法，不是时序错误。",
     "第一章：考核毕宣布'三日之后宗门大比'与正典事件时序一致，不得标记。"
   ],
-  "tags": ["synthetic", "timeline-violation", "llm-detector", "zh", "recall-test", "guardian-v3-sync"]
+  "tags": [
+    "synthetic",
+    "timeline-violation",
+    "llm-detector",
+    "zh",
+    "recall-test",
+    "guardian-v3-sync",
+    "proposed-detector"
+  ]
 }
