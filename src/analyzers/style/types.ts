@@ -53,6 +53,8 @@ export type StyleIssueType =
   | "modifier_chain"
   | "telling_not_showing"
   | "background_overload"
+  | "pacing_rhythm"
+  | "gesture_gloss"
 
 export interface StyleIssue {
   type: StyleIssueType

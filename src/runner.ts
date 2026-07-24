@@ -167,15 +167,28 @@ async function main() {
     resetTokens()
   }
 
-  // Save report
-  const reportsDir = join(import.meta.dirname ?? __dirname, "..", "reports")
-  mkdirSync(reportsDir, { recursive: true })
-  const reportPath = join(
-    reportsDir,
-    `${new Date().toISOString().split("T")[0]}.json`
-  )
-  writeFileSync(reportPath, JSON.stringify(results, null, 2))
-  console.log(`Report saved: ${reportPath}`)
+  // Save report — but never let a degenerate run (zero fixtures scored, e.g.
+  // `--tags llm-detector`, where the guardian evaluator rightly skips every
+  // fixture) overwrite a real same-day report with all-zero aggregates.
+  const scoredResults = results.filter((r) => r.fixtures.length > 0)
+  const emptyResults = results.length - scoredResults.length
+  if (emptyResults > 0) {
+    console.log(
+      `Skipped ${emptyResults} evaluator result(s) with zero scored fixtures — not written to the report`
+    )
+  }
+  if (scoredResults.length === 0) {
+    console.log("No evaluator scored any fixtures — report NOT saved")
+  } else {
+    const reportsDir = join(import.meta.dirname ?? __dirname, "..", "reports")
+    mkdirSync(reportsDir, { recursive: true })
+    const reportPath = join(
+      reportsDir,
+      `${new Date().toISOString().split("T")[0]}.json`
+    )
+    writeFileSync(reportPath, JSON.stringify(scoredResults, null, 2))
+    console.log(`Report saved: ${reportPath}`)
+  }
 
   // Compare against baseline if requested
   if (compareBaseline) {

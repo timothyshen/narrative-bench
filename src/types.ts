@@ -103,6 +103,18 @@ export interface AggregateScore {
 // GUARDIAN FIXTURES
 // ============================================================
 
+/**
+ * A world constraint (1B) as the product stores it: Note rows with
+ * noteType "rule" | "prohibition", read by the l1.constraint-violation
+ * detector through BookKnowledgeSource.getWorldConstraints.
+ */
+export interface FixtureWorldConstraint {
+  id: string
+  kind: "rule" | "prohibition"
+  title: string
+  content: string
+}
+
 export interface GuardianFixture {
   id: string
   name: string
@@ -111,15 +123,26 @@ export interface GuardianFixture {
   contentType: ContentType
   chapters: FixtureChapter[]
   knowledgeBase: FixtureKBEntry[]
+  /** World constraints (1B) for llm-detector fixtures; absent on legacy fixtures. */
+  worldConstraints?: FixtureWorldConstraint[]
   expectedIssues: ExpectedIssue[]
   expectedNonIssues: string[]
   tags: string[]
 }
 
 export interface ExpectedIssue {
-  category: string
-  severity: "error" | "warning" | "info"
+  /** Optional in practice since the first fixtures; the matcher only checks when present. */
+  category?: string
+  severity?: "error" | "warning" | "info"
   descriptionPattern: string
+  /** Structured annotation (guardian-v3 sync 2026-07) — the shape the product's
+   * cassette-based LLM-detector harness consumes (its BenchExpectation seam):
+   * which chapter the violation lives in, which detector should catch it, and
+   * the exact in-text substring of the violating passage. Optional so legacy
+   * fixtures stay valid; all llm-detector fixtures carry them. */
+  chapterId?: string
+  detectorId?: string
+  substring?: string
 }
 
 // ============================================================

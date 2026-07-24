@@ -52,14 +52,25 @@ export function loadFixtures<T extends keyof FixtureMap>(
   }
 
   const fixtures: FixtureMap[T][] = []
+  // Fixtures tagged "llm-detector" are gold data for the LLM-detector
+  // evaluation path, not inputs for the local evaluators. Enforce the
+  // exclusion here at the choke point — not per-evaluator — unless the
+  // caller asked for them by tag explicitly.
+  const wantsLlmDetector = tags?.includes("llm-detector") ?? false
+  let excludedLlm = 0
 
   for (const file of files) {
     try {
       const raw = readFileSync(join(dir, file), "utf-8")
       const fixture = JSON.parse(raw) as FixtureMap[T]
+      const fixtureTags = (fixture as { tags?: string[] }).tags || []
+
+      if (fixtureTags.includes("llm-detector") && !wantsLlmDetector) {
+        excludedLlm++
+        continue
+      }
 
       if (tags && tags.length > 0) {
-        const fixtureTags = (fixture as { tags?: string[] }).tags || []
         const hasMatch = tags.some((t) => fixtureTags.includes(t))
         if (!hasMatch) continue
       }
@@ -68,6 +79,12 @@ export function loadFixtures<T extends keyof FixtureMap>(
     } catch (e) {
       console.error(`[FixtureLoader] Failed to load ${file}:`, e)
     }
+  }
+
+  if (excludedLlm > 0) {
+    console.log(
+      `[FixtureLoader] Excluded ${excludedLlm} llm-detector fixture(s) — gold data for the LLM eval path (pass --tags llm-detector to load them)`
+    )
   }
 
   return fixtures

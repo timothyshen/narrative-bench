@@ -8,7 +8,7 @@ Not "does AI write well?" but "can AI **understand** story structure?" — three
 
 | Evaluator | What It Tests | Method |
 |-----------|--------------|--------|
-| **guardian** | Can your system distinguish literary devices from real inconsistencies? | Precision/recall/FPR against annotated false-positive traps |
+| **guardian** | Can your system distinguish literary devices from real inconsistencies — including violations of author-declared world constraints (rules / prohibitions)? | Precision/recall/FPR against annotated false-positive traps |
 | **analysis** | Can it detect literary qualities, character arcs, and causal chains? | Quality detection + arc mapping + causal coverage |
 | **style-prose** | Does it avoid flagging well-written prose as flawed? | False-positive resistance across 5 style detectors |
 | **chapter-suspense** | Can it classify chapter types and measure tension? | Suspense detection + thread coverage + cliffhanger false-positive resistance |
@@ -28,6 +28,42 @@ Each fixture includes:
 - Expected character arcs with beats
 - Expected causal chains
 - False-positive traps (things that should NOT be flagged)
+
+### Guardian v3 sync (2026-07)
+
+The product's Guardian is a 5-layer system (L1 consistency / L2 style & prose /
+L3 analysis / L4 chapter & suspense / L5 plot structure). The local evaluators
+here cover the pattern-matching tiers; detectors that only exist as LLM calls
+ship as annotated gold fixtures instead. Full coverage map + open gaps:
+[`docs/guardian-v3-coverage-gap.md`](./docs/guardian-v3-coverage-gap.md).
+
+**Ported local detectors** (scored by the default run):
+- `l2.pacing-rhythm` + `l2.gesture-gloss` — added to `prose-detectors.ts`.
+- `l4.opening-quality` — the chapter classifier already computed
+  `openingErrors`; the chapter evaluator now scores it as the
+  `noFalseOpeningErrors` false-positive-resistance dimension.
+
+**LLM-detector gold fixtures** (tagged `llm-detector`, **skipped by the default
+`bench guardian` run** — local analyzers cannot score LLM-only detectors, and
+pretending otherwise would report a meaningless zero-recall floor; they feed
+the LLM-detector evaluation path, which needs an API budget):
+
+- `world-constraints-{en,zh}.json` — `l1.constraint-violation`: violations of
+  author-declared `rule`/`prohibition` entries, plus honored-rule / dream /
+  spoken-intent / in-constraint-exception / metaphor traps.
+- `timeline-violations-{en,zh}.json` — `l1.timeline-violation`: chapters
+  contradicting the canonical event order fixed by KB `event` entries, plus
+  flashback / character-misremembering / foreshadowing traps. *Tagged
+  `proposed-detector`: the shipped product detector is a marker-frequency
+  heuristic; no shipped code implements these semantics yet (see gap doc).*
+- `entity-contradictions-{en,zh}.json` — `l1.entity-contradiction`: prose
+  contradicting canonical entity facts, plus perception-under-light /
+  in-world-change / hearsay / alias / metaphor traps. *Tagged
+  `proposed-detector`: the shipped detector reasons over `relations[]`, a
+  different input universe (see gap doc).*
+- `proofread-{en,zh}.json` — `l2.proofread`: seeded mechanical errors, plus
+  dialect-in-dialogue / classical-quotation / in-world-spelling /
+  intentional-fragment traps.
 
 ## Quick Start
 

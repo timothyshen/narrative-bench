@@ -52,6 +52,9 @@ const STYLE_DETECTOR_META: Record<
   modifier_chain:         { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "modifier-chain" },
   telling_not_showing:    { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "telling-not-showing" },
   background_overload:    { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "background-overload" },
+  // guardian-v3 sync (2026-07): keep in lockstep with guardian.ts META
+  pacing_rhythm:          { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "pacing-rhythm" },
+  gesture_gloss:          { confidence: "medium", lane: "suggestion", category: "style",       detectorId: "gesture-gloss" },
   pov_leak:               { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "pov-leak" },
   passive_voice:          { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "passive-voice" },
   weak_verb:              { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "weak-verb" },

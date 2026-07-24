@@ -1,0 +1,76 @@
+{
+  "id": "entity-contradictions-en",
+  "name": "Entity field contradictions — synthetic (EN)",
+  "description": "Gold cases for the product's l1.entity-contradiction detector (guardian-v3 sync 2026-07). Knowledge-base entries fix canonical entity facts (Elara's green eyes; the two-storey Gilded Swan; Bram's lost right arm); the chapters contradict them. Traps: perception under unusual light, an in-world renovation explicitly narrated, metaphor, and an alias must NOT be flagged. Tagged llm-detector: skipped by the default local guardian run. NOTE (2026-07-20 review): the product's SHIPPED l1.entity-contradiction runs symbolic closure over relations[] — these KB-field-vs-prose cases target the catalog's named semantics (and overlap l1.character-inconsistency's KB half), not the shipped detector; see docs/guardian-v3-coverage-gap.md.",
+  "locale": "en",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "ec-en-ch1",
+      "title": "The Gilded Swan",
+      "content": "The Gilded Swan stood where it had always stood, at the crook of Tanner's Lane, its two storeys leaning together like old friends. Locals still called it the Swan, or sometimes the Old Bird, and everyone knew which door they meant.\n\nElara took the corner table under the window. In the green glass of the lamplight her eyes looked almost grey, the colour of river fog, though anyone who had seen her by day knew them for green.\n\nBram brought her cider without being asked, balancing the tray against his hip with practised ease, his empty right sleeve pinned neat against his shoulder the way it had been since the war.",
+      "orderIndex": 1
+    },
+    {
+      "id": "ec-en-ch2",
+      "title": "The Third Floor",
+      "content": "Spring came, and with it the scaffolding. By midsummer the carpenters had raised a third storey over the Gilded Swan's old bones, and the smell of fresh-cut pine hung over Tanner's Lane for weeks. The new floor held four guest rooms and a view of the river that Bram swore would double his custom.\n\nIt was in one of those new rooms that Elara met the courier. He studied her a long moment before he spoke.\n\n\"They told me to look for the woman with the brown eyes,\" he said. \"You'd be her, then.\" And it was true — her brown eyes fixed on him steadily as she held out her hand for the letter.",
+      "orderIndex": 2
+    },
+    {
+      "id": "ec-en-ch3",
+      "title": "Two Hands",
+      "content": "The courier's news emptied the common room by midnight. Only Bram remained, and Elara watched him work the tap.\n\nBram set down two tankards, gripped one in each hand, and carried them both to her table without spilling a drop.\n\n\"You've the memory of an elephant,\" she told him. He laughed — the whole room seemed to hold its old warmth for a moment, the Swan wrapping its wings around them the way it always did on cold nights.",
+      "orderIndex": 3
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "id": "ec-en-kb-elara",
+      "title": "Elara",
+      "type": "character",
+      "content": "A dye-merchant's daughter turned message-runner. Green eyes, dark hair kept short. Canonical appearance fixed at book start."
+    },
+    {
+      "id": "ec-en-kb-bram",
+      "title": "Bram",
+      "type": "character",
+      "content": "Keeper of the Gilded Swan. Lost his right arm in the war; the sleeve is pinned at the shoulder. Known for balancing trays one-handed."
+    },
+    {
+      "id": "ec-en-kb-swan",
+      "title": "The Gilded Swan",
+      "type": "location",
+      "content": "A two-storey inn at the crook of Tanner's Lane. Locals also call it 'the Swan' or 'the Old Bird'."
+    }
+  ],
+  "expectedIssues": [
+    {
+      "chapterId": "ec-en-ch2",
+      "detectorId": "l1.entity-contradiction",
+      "substring": "her brown eyes fixed on him steadily",
+      "descriptionPattern": "brown eyes"
+    },
+    {
+      "chapterId": "ec-en-ch3",
+      "detectorId": "l1.entity-contradiction",
+      "substring": "gripped one in each hand",
+      "descriptionPattern": "each hand|two tankards|both hands"
+    }
+  ],
+  "expectedNonIssues": [
+    "Chapter 1: 'in the green glass of the lamplight her eyes looked almost grey' is perception under unusual light, explicitly framed as such ('anyone who had seen her by day knew them for green') — not a contradiction of the KB's green eyes.",
+    "Chapter 2: the third storey is an in-world renovation narrated on the page (scaffolding, carpenters, fresh pine) — the world changed legitimately; later references to three storeys must not be flagged against the KB's original two.",
+    "Chapter 3: 'the Swan wrapping its wings around them' is metaphor, not a claim about the building.",
+    "Chapter 1: calling the inn 'the Old Bird' uses an alias recorded in the KB entry — an alternate name is not a contradiction."
+  ],
+  "tags": [
+    "synthetic",
+    "entity-contradiction",
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync",
+    "proposed-detector"
+  ]
+}

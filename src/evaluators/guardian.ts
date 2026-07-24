@@ -58,6 +58,9 @@ const STYLE_DETECTOR_META: Record<
   temporal_confusion:     { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "temporal-confusion" },
   dialogue_order:         { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "dialogue-order" },
   adverb_dialogue_tag:    { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "adverb-dialogue-tag" },
+  // guardian-v3 sync (2026-07): ported product l2 locals
+  pacing_rhythm:          { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "pacing-rhythm" },
+  gesture_gloss:          { confidence: "medium", lane: "suggestion", category: "style",       detectorId: "gesture-gloss" },
   info_dump_dialogue:     { confidence: "medium", lane: "suggestion", category: "style",       detectorId: "info-dump-dialogue" },
   purposeless_dialogue:   { confidence: "medium", lane: "suggestion", category: "style",       detectorId: "purposeless-dialogue" },
   verbose_dialogue:       { confidence: "low",    lane: "suggestion", category: "style",       detectorId: "verbose-dialogue" },
@@ -144,7 +147,20 @@ export async function evaluateGuardian(
   const { version = "dev" } = options
   const fixtureResults: FixtureResult[] = []
 
-  for (const fixture of fixtures) {
+  // Fixtures tagged "llm-detector" carry gold labels for detectors that only
+  // exist as LLM calls in the product (e.g. l1.constraint-violation). The
+  // local pattern analyzers can never emit those issues, so scoring them here
+  // would report a zero-recall floor that says nothing about the system.
+  // Skip them loudly; they feed the LLM-detector evaluation path instead.
+  const runnable = fixtures.filter((f) => !(f.tags ?? []).includes("llm-detector"))
+  const skipped = fixtures.length - runnable.length
+  if (skipped > 0) {
+    console.log(
+      `  [guardian] Skipped ${skipped} llm-detector fixture(s) — local analyzers cannot score LLM-only detectors`
+    )
+  }
+
+  for (const fixture of runnable) {
     const result = await evaluateFixture(fixture, options)
     fixtureResults.push(result)
   }
@@ -472,6 +488,7 @@ function inferDetectorFromExpected(exp: ExpectedIssue): string {
     "dialogue-order", "adverb-dialogue-tag", "info-dump-dialogue", "purposeless-dialogue",
     "verbose-dialogue", "sentence-monotony", "paragraph-wall", "modifier-chain",
     "telling-not-showing", "background-overload", "pov-leak",
+    "pacing-rhythm", "gesture-gloss",
     "dead-character-appearance", "character-name-typo",
   ]
 

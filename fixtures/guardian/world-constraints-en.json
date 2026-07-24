@@ -1,0 +1,114 @@
+{
+  "id": "world-constraints-en",
+  "name": "World-constraint violations — synthetic (EN)",
+  "description": "World-constraint (1B) synthetic cases synced 2026-07-19 to the guardian-v3 stage. Exercises the product's l1.constraint-violation detector: constraints mirror Note.noteType rule|prohibition and reach the detector via BookKnowledgeSource.getWorldConstraints. Three straight violations plus five literary-device traps (honored rule, wordless act under a speech ban, dream sequence, spoken intent, in-constraint exception). Tagged llm-detector: the local pattern analyzers cannot score this fixture, so the default guardian run skips it.",
+  "locale": "en",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "wc-en-ch1",
+      "title": "The Toll and the Door",
+      "content": "The gatekeeper at the Veilgate held out a gloved palm before Mara had finished climbing the last stair. She had come prepared. One of the two iron tokens her mother had carried for thirty years went into that palm without a word, and the gate swung inward on hinges that made no sound at all.\n\nHarrow House waited beyond the mist like a held breath. Mara counted the windows twice and got different numbers each time.\n\nShe found the first warded door at the end of the east corridor — black oak crossed with silver, the Harrow crest burned into the grain. Mara was no Harrow. Her family had scrubbed these floors for three generations, and not one drop of that blood ran in her. She carried no seal, no writ, nothing but a dead woman's iron and her own stubbornness.\n\nShe pressed her palm flat against the crest.\n\nThe door opened.\n\nIt did not groan or resist or demand anything of her. It simply swung wide, as if it had been waiting, and the cold air of the sealed wing spilled out over her boots. Mara stood on the threshold a long moment, listening to her own heartbeat, before she stepped through.",
+      "orderIndex": 1
+    },
+    {
+      "id": "wc-en-ch2",
+      "title": "The Listening Sanctum",
+      "content": "The novices filed into the Listening Sanctum with their heads bowed, and Mara followed, slate in hand like everyone else. Inside, the silence had a texture to it, thick as wool. One of the older novices began to hum — a low, wordless hymn that rose and circled under the dome. No one stopped her. The humming carried no words, and the Sanctum asked only that no word be spoken.\n\nBrother Alden stood apart from the rest, staring at the reflecting pool. Mara watched his shoulders shake. Then, clearly, into the listening dark, he spoke aloud: \"The river took him. The river took my brother and none of you wrote a thing.\"\n\nThe words landed like stones on glass. Every head turned. Two of the wardens were already moving toward him, slates raised, their faces unreadable.\n\nThat night Mara dreamed of the ferry at Grey Reach. In the dream it was long past midnight, the water black and smooth as poured tar, and old Casper poled them across without once looking at her, the far shore lit by lanterns that never got closer. She woke with the taste of river fog in her mouth and lay still until dawn, telling herself it had only been the dream it was.",
+      "orderIndex": 2
+    },
+    {
+      "id": "wc-en-ch3",
+      "title": "The Crossing",
+      "content": "\"Then I'll shout his name in the Sanctum itself, if that's what it takes.\" Tobias said it with his fists white on the table. \"Let them drag me out by the collar.\" He never went. The threat burned out of him by morning, the way his threats always did, and the Sanctum kept its silence unbroken.\n\nIt was the Warden's clerk who got them into the sealed archive — a narrow man with ink-stained cuffs who pressed the Warden's seal to the warded door and stood aside as it opened for him, exactly as the old law said it might. Mara read the ledgers until the light failed.\n\nWhat the ledgers told her could not wait for morning.\n\nThey reached Grey Reach two hours after nightfall. The lanterns were out, the rope was tied, and Casper sat smoking in the dark as if he had been expecting no one. Mara said nothing. She held out what was left of her mother's iron.\n\nCasper looked at it a long time. Then he stood, untied the rope, and poled them across the black water, night pressing in on every side, the far shore rising slowly out of the dark to meet them.",
+      "orderIndex": 3
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "id": "wc-en-kb-mara",
+      "title": "Mara",
+      "type": "character",
+      "content": "A servant family's daughter investigating a death connected to Harrow House. Explicitly not of Harrow blood; carries her late mother's iron token but holds no seal or writ of any kind."
+    },
+    {
+      "id": "wc-en-kb-harrow-house",
+      "title": "Harrow House",
+      "type": "location",
+      "content": "Ancestral seat of the Harrow family. Its inner wings are closed by warded doors marked with the family crest."
+    },
+    {
+      "id": "wc-en-kb-sanctum",
+      "title": "The Listening Sanctum",
+      "type": "location",
+      "content": "A domed hall of enforced silence where grievances are written on slate. Wardens patrol it; speech inside is a grave offense."
+    },
+    {
+      "id": "wc-en-kb-grey-reach",
+      "title": "Grey Reach ferry",
+      "type": "location",
+      "content": "The only river crossing for twenty miles, worked by the ferryman Casper. Local custom around the crossing is old and strictly kept."
+    }
+  ],
+  "worldConstraints": [
+    {
+      "id": "wc-en-iron-toll",
+      "kind": "rule",
+      "title": "The Iron Toll",
+      "content": "The Veilgate opens only for a traveler who surrenders an iron token to the gatekeeper. Without the toll the gate stays shut — for anyone."
+    },
+    {
+      "id": "wc-en-blood-locks",
+      "kind": "rule",
+      "title": "Blood Locks",
+      "content": "The warded doors of Harrow House open only to Harrow blood, or to a bearer of the Warden's seal."
+    },
+    {
+      "id": "wc-en-sanctum-silence",
+      "kind": "prohibition",
+      "title": "Sanctum Silence",
+      "content": "No spoken word inside the Listening Sanctum. Whatever must be said there is written on slate or not said at all."
+    },
+    {
+      "id": "wc-en-night-ferry",
+      "kind": "prohibition",
+      "title": "Never After Dark",
+      "content": "The ferry at Grey Reach does not cross the river after nightfall. No fare, no plea has ever moved Casper to untie the rope at night."
+    }
+  ],
+  "expectedIssues": [
+    {
+      "chapterId": "wc-en-ch1",
+      "detectorId": "l1.constraint-violation",
+      "substring": "She pressed her palm flat against the crest",
+      "descriptionPattern": "(?=[\\s\\S]*?Blood Locks?)(?=[\\s\\S]*?(?:Mara|palm|no Harrow|not of Harrow))"
+    },
+    {
+      "chapterId": "wc-en-ch2",
+      "detectorId": "l1.constraint-violation",
+      "substring": "he spoke aloud",
+      "descriptionPattern": "(?=[\\s\\S]*?Sanctum Silence)(?=[\\s\\S]*?(?:Alden|spoke aloud|river took))"
+    },
+    {
+      "chapterId": "wc-en-ch3",
+      "detectorId": "l1.constraint-violation",
+      "substring": "untied the rope, and poled them across",
+      "descriptionPattern": "(?=[\\s\\S]*?Never After Dark)(?=[\\s\\S]*?(?:untied|two hours after nightfall|held out))"
+    }
+  ],
+  "expectedNonIssues": [
+    "Chapter 1: Mara surrendering the iron token at the Veilgate HONORS The Iron Toll — the gate opening for her is the rule working, not a violation.",
+    "Chapter 2: the wordless humming inside the Sanctum is not a spoken word — Sanctum Silence forbids speech, and the hymn carries no words. Must not be flagged.",
+    "Chapter 2: the midnight ferry crossing is an explicit DREAM sequence (Mara wakes from it) — not a real event, so it does not violate Never After Dark.",
+    "Chapter 3: Tobias's threat to shout in the Sanctum is spoken intent that is never carried out ('He never went') — no violation occurred.",
+    "Chapter 3: the Warden's clerk opening the warded door with the Warden's seal exercises the exception written into Blood Locks itself — the rule allows a seal-bearer."
+  ],
+  "tags": [
+    "synthetic",
+    "constraint-violation",
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync"
+  ]
+}
