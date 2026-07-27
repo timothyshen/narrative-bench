@@ -120,3 +120,51 @@ dependency trees.
   ported detectors (e.g. pacing fires ~20 issues on hamlet-fulltext's verse
   layout), shifting v0/flat counts vs the published Section-6 numbers. Both
   ablation META entries were added 07-20 so lanes/ids stay consistent.
+
+---
+
+## Cross-repo reconciliation (2026-07-22, post PR #1 merge)
+
+Verified against creader_editor `origin/main` (unchanged since 2026-07-19):
+the product runs its OWN evaluation stack — a cassette-replay harness
+(`lib/ai/guardian/bench/`, CI-gated via `bench:guardian:v2`) with **8 LLM
+adapters** (`l2.pov-leak`, `l3.character-arc`, `l3.causal-chain`,
+`l3.quality-deficit`, `l3.flaw-pattern`, `l5.act-structure`,
+`l5.inciting-incident`, `l5.midpoint`) and **34 gold fixtures** under
+`benchmarks/guardian-v2-fixtures/`. The gap is therefore two-directional.
+
+### A. Only the open bench has
+
+| Asset | Why it matters |
+|---|---|
+| `l1.constraint-violation` gold (`world-constraints-{en,zh}`) | the product's adapter roster does NOT include constraint-violation and its fixture dir has no constraint cases — **the flagship 1B.4 detector's only gold labels live here** |
+| Canonical-order timeline + KB-field entity gold (`proposed-detector` ×4) | no implementation anywhere; these are the spec |
+| `proofread-en` | the product only has `proofread-zh` |
+| Masterwork-scale FP-resistance corpus (Hamlet / Hong Lou Meng) | the product's `clean-prose-traps` is far smaller |
+
+### B. Only the product has
+
+| Asset | Why it matters |
+|---|---|
+| Cassette-replay harness + CI gate | this repo has no baselines and cannot run any LLM detector |
+| 8 LLM adapters over real detectors | the only place gold labels become P/R numbers today |
+| Bilingual gold for `pov-leak`, `l3-flaw-pattern`, `l3-causal`, `l3-character`, `l3-coherence`; `inference-kinship` (the relations[] entity detector), `consistency-character`, per-content-type recall sets, `cliffhanger-overloaded`, `opening-weather` | **supersedes this doc's "LLM fixtures not yet authored" rows for pov-leak and flaw-pattern — convert/sync those from the product instead of authoring fresh** |
+
+### C. Neither repo has (the true bare spots)
+
+| Gap | Note |
+|---|---|
+| `l4.emotion-flatness` · `l4.suspense-level` · `l4.thread-coverage` | no adapter, no gold anywhere; bench has only local proxies — the L4 LLM tier is the one layer with zero evaluation assets on either side |
+| The canonical-order timeline DETECTOR itself | decided 2026-07-20: build product-side (R2); fixtures in this repo are its spec |
+
+### The one move that collapses A+B
+
+The repos are each self-consistent but non-interoperable; what is missing is
+the SEAM, not more assets. The product's declared adapter point
+(`lib/ai/guardian/bench/types.ts` — "when narrative-bench updates its fixture
+format, this file is the seam to update") plus this repo's structured
+`chapterId`/`detectorId`/`substring` annotations are both in place. One
+working session at that seam: (1) re-point proofread gold to this repo
+(bench-is-canon decision), (2) convert the product's pov-leak/flaw-pattern
+gold into this repo's format, (3) add an `l1.constraint-violation` adapter so
+1B.4 gets its first P/R numbers. After that, only row C needs new authoring.
