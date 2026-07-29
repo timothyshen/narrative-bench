@@ -84,9 +84,13 @@ dependency trees.
 
 ## Known issues & caveats (from the 2026-07-20 review)
 
-1. **Legacy score**: the 4 legacy guardian fixtures score **26.65/100, pass
-   50%** on their own local evaluators (A/B-verified pre-existing). Diagnose or
-   re-annotate before the open-source flip.
+1. **Legacy score — DIAGNOSED 2026-07-29** (`docs/legacy-guardian-score-diagnosis.md`):
+   the 26.65 headline is structurally distorted (FP-trap fixtures' definitional
+   precision-0 averaged into the mean); the real defects are the CJK repetition
+   detector's overlapping-window name FPs + the evaluator never passing
+   knowledgeBase names as `properNouns` (zh P=20), three noisy en detectors,
+   and an FP-trap pass criterion that doesn't bite (7.26 FPs/kwords passed a
+   <=2 gate). Repair order A/B/D before the open-source flip; C trails.
 2. **Tag governance — FIXED 2026-07-20 (both layers).** The `llm-detector`
    exclusion now lives in `loadFixtures` itself (choke point; explicit
    `--tags llm-detector` opts back in), and the runner refuses to write a
