@@ -1,0 +1,33 @@
+{
+  "id": "guardian-l3-flaw-pattern-en",
+  "name": "L3 recall — genuine recurring flaw pattern (en)",
+  "description": "GENERATED from creader_editor benchmarks/guardian-v2-fixtures/l3-flaw-pattern-en.json (bench-is-canon migration 2026-07-26) — canonical home is now THIS repo; edit here and re-sync product-side via scripts/sync-narrative-bench-fixtures.ts. Prose with ONE unambiguous recurring tic: nearly every beat opens with the verbatim crutch 'Suddenly,' — a real pattern (5+ distinct verbatim recurrences), not a deliberate register. Purpose: confirm detect→verify KEEPS a genuine flaw pattern (recall) and that flaw-pattern's distinct-verbatim rule still fires. expectedIssues added after inspecting the recording.",
+  "locale": "en",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "l3fp-ch1",
+      "title": "Chapter 1 — The Storm",
+      "content": "Suddenly, the door blew open and the rain came in sideways. Elena grabbed the lamp before it fell. Suddenly, the lights went out, and the whole house dropped into a thick, humming dark. She felt her way along the wall toward the kitchen. Suddenly, a floorboard creaked behind her, close enough that she froze with one hand on the doorframe. She told herself it was the old house settling. Suddenly, the phone rang, shrill in the silence, and she nearly dropped the lamp a second time. She let it ring twice before she answered. Suddenly, a voice she had not heard in years said her name, and the floor seemed to tilt under her. Suddenly, none of the careful plans she had made for the evening mattered at all, and she sat down hard on the cold kitchen tiles to steady herself.",
+      "orderIndex": 0,
+      "summary": "Nearly every beat opens with the verbatim crutch 'Suddenly,' — a genuine recurring stylistic tic (6 distinct recurrences), not a deliberate register."
+    }
+  ],
+  "knowledgeBase": [],
+  "expectedIssues": [
+    {
+      "chapterId": "l3fp-ch1",
+      "detectorId": "l3.flaw-pattern",
+      "substring": "suddenly",
+      "descriptionPattern": "suddenly"
+    }
+  ],
+  "expectedNonIssues": [],
+  "tags": [
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync",
+    "synced-from-product"
+  ]
+}

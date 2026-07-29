@@ -1,0 +1,33 @@
+{
+  "id": "guardian-l3-flaw-pattern-zh",
+  "name": "L3 recall — verbatim emotional-beat tic ×3 (zh)",
+  "description": "GENERATED from creader_editor benchmarks/guardian-v2-fixtures/l3-flaw-pattern-zh.json (bench-is-canon migration 2026-07-26) — canonical home is now THIS repo; edit here and re-sync product-side via scripts/sync-narrative-bench-fixtures.ts. 每个情绪节拍都以'他心里一沉。'逐字开场，共三次——机械性重复的语病，而非刻意复沓（句子不承担结构或韵律功能，只是习惯性转场）。expectedIssues 为先验标注，首次 record 后需校验。",
+  "locale": "zh",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "l3fp-zh-ch1",
+      "title": "第一章 家书",
+      "content": "信是晌午到的。他心里一沉，把信搁在案上，先去柜上支应了两个客人。客人挑了半日绸子，一寸也没买。客人走了，他拆开信，只读了头一行。他心里一沉，父亲的病又重了，要他年前赶回去。他把信折好，贴身放着，往后院去寻掌柜的告假。掌柜的正在核账，算盘拨得脆响，听他说完，半晌不言语。他心里一沉，知道这假多半是告不成的。院里的枣树落了几片叶子，他捡起一片，捏在手里，捏出了汗。晚上打烊，他一个人把门板一块一块上好，街上已经没有人了。",
+      "orderIndex": 0,
+      "summary": "'他心里一沉。'作为情绪节拍的开场逐字出现三次——习惯性语病，非刻意复沓。"
+    }
+  ],
+  "knowledgeBase": [],
+  "expectedIssues": [
+    {
+      "chapterId": "l3fp-zh-ch1",
+      "detectorId": "l3.flaw-pattern",
+      "substring": "他心里一沉",
+      "descriptionPattern": "他心里一沉"
+    }
+  ],
+  "expectedNonIssues": [],
+  "tags": [
+    "llm-detector",
+    "zh",
+    "recall-test",
+    "guardian-v3-sync",
+    "synced-from-product"
+  ]
+}

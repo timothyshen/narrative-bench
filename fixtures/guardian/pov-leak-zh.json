@@ -1,0 +1,33 @@
+{
+  "id": "guardian-pov-leak-zh",
+  "name": "L2 recall — head-hop in limited-third zh prose",
+  "description": "GENERATED from creader_editor benchmarks/guardian-v2-fixtures/pov-leak-zh.json (bench-is-canon migration 2026-07-26) — canonical home is now THIS repo; edit here and re-sync product-side via scripts/sync-narrative-bench-fixtures.ts. 有限第三人称（锚定春兰）中埋一处真实头跳：叙述把老陈的私人盘算当作事实陈述，春兰无从得知。其余全部是春兰的所见与自身内心。矛盾在文中段。expectedIssues 为先验标注，首次 record 后需校验。",
+  "locale": "zh",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "pov-zh-ch1",
+      "title": "第一章 早市",
+      "content": "春兰把最后一笼包子端上蒸架，才觉出后腰酸得直不起来。天没亮就起的身，和面、剁馅、生火，一样也省不得。她隔着蒸汽望见老陈坐在门边的方桌旁，照旧要了一碟酱菜、二两烧酒。他的筷子在碟沿上顿了顿，又搁下了。老陈心里正盘算着把城南的铺面盘出去，又怕老伴知道了跟他闹，这几日夜里都睡不安稳。春兰收回目光，往灶里添了一把柴。火旺起来，映得她半边脸发烫。她想，等这一季忙过去，也该给自己缝件新棉袄了，蓝布的，滚一道细边。头一锅包子出笼的时候，街上的雾还没有散。",
+      "orderIndex": 0,
+      "summary": "锚定春兰的有限第三人称；中段一句把老陈的私人盘算当事实陈述——真实头跳。"
+    }
+  ],
+  "knowledgeBase": [],
+  "expectedIssues": [
+    {
+      "chapterId": "pov-zh-ch1",
+      "detectorId": "l2.pov-leak",
+      "substring": "老陈心里正盘算着",
+      "descriptionPattern": "老陈心里正盘算着"
+    }
+  ],
+  "expectedNonIssues": [],
+  "tags": [
+    "llm-detector",
+    "zh",
+    "recall-test",
+    "guardian-v3-sync",
+    "synced-from-product"
+  ]
+}

@@ -73,8 +73,8 @@ dependency trees.
 
 | Detector | Note |
 |---|---|
-| l2.pov-leak | bench has a LOCAL approximation (excluded from Tier 1 as fragile); the product runs it api-heavy |
-| l3.flaw-pattern · l4.emotion-flatness · l5.midpoint | same fixture pattern as the four shipped families |
+| ~~l2.pov-leak~~ · ~~l3.flaw-pattern~~ | **SYNCED 2026-07-26** from the product's guardian-v2-fixtures (`synced-from-product` tag). Unit-tier thin (1 violation, no traps) — thicken to the four-family trap pattern when they matter |
+| l4.emotion-flatness · l5.midpoint | same fixture pattern as the four shipped families (midpoint has a product adapter; emotion-flatness has neither) |
 
 ### Deferred on purpose
 

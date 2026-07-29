@@ -1,0 +1,32 @@
+{
+  "id": "guardian-v2-pov-leak-en",
+  "name": "POV leak (en) — head-hop amid legitimate observation",
+  "description": "GENERATED from creader_editor benchmarks/guardian-v2-fixtures/pov-leak-en.json (bench-is-canon migration 2026-07-26) — canonical home is now THIS repo; edit here and re-sync product-side via scripts/sync-narrative-bench-fixtures.ts. Scores l2.pov-leak. A single Ada-POV scene. It contains things the detector must NOT flag — external observable behaviour of Bram (a frown, a tightened jaw), and Ada's own INFERENCE of his mood ('she guessed he was angry') — plus exactly ONE genuine head-hop: a sentence stating Bram's private wish as fact, which Ada cannot know. detect→verify should keep only the head-hop. expectedIssues annotated after the recording confirms it.",
+  "locale": "en",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "pov-en-00",
+      "title": "The Reception",
+      "content": "Ada stood at the edge of the reception, a glass of wine warming untouched in her hand, and watched the dancers turn under the lanterns. Bram came in late, as he always did, and crossed the floor toward her. His jaw was tight and he did not smile, and she guessed from the set of his shoulders that the meeting had gone badly. He stopped a careful arm's length away. Across the room, Bram secretly wished he had never agreed to come to the wedding at all. Ada offered him the wine she had not drunk. He took it without a word and looked out at the dancers, frowning, and for a long moment neither of them said anything at all while the music carried on.",
+      "orderIndex": 0
+    }
+  ],
+  "knowledgeBase": [],
+  "expectedIssues": [
+    {
+      "chapterId": "pov-en-00",
+      "detectorId": "l2.pov-leak",
+      "substring": "secretly wished",
+      "descriptionPattern": "secretly\\ wished"
+    }
+  ],
+  "expectedNonIssues": [],
+  "tags": [
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync",
+    "synced-from-product"
+  ]
+}
