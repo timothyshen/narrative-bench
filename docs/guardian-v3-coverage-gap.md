@@ -34,7 +34,7 @@ the bench-native `descriptionPattern`.
 | l1.constraint-violation | gold fixtures `world-constraints-{en,zh}` — `FixtureWorldConstraint` is field-identical to the product's `BookWorldConstraint`; one adapter call (`createInMemoryBookSource({worldConstraints})`) away from runnable |
 | l2 local style family (lexical-illusion, punctuation, unattributed-dialogue, cliche, weasel-words, there-is-starter, temporal-confusion, dialogue-order) | local ports (`style/`) |
 | l2.pacing-rhythm · l2.gesture-gloss | ported 2026-07-19; `stripDialogue` re-aligned to the product's family-paired version 07-20 (the legacy bench helper ate narration between ASCII contractions) |
-| l2.proofread | gold fixtures `proofread-{en,zh}` — **Decision 2026-07-20 (Tim): the BENCH is the canonical gold source.** The product's own copy (`benchmarks/guardian-v2-fixtures/proofread-zh.json`) is downstream/legacy; follow-up: re-point the product harness at bench fixtures through its declared seam (`lib/ai/guardian/bench/types.ts` — "[PROTOCOL]: When narrative-bench updates its fixture format, this file is the seam to update"). The structured `chapterId`/`detectorId`/`substring` annotations added 07-20 exist precisely so that seam can consume these files. **Finding 2026-07-29 (recording session): the product harness has NO l2.proofread adapter at all** — neither in `BENCH_ADAPTERS` (23 local) nor `LLM_BENCH_ADAPTERS` (9 LLM); its own `proofread-zh.json` gold has therefore never been scored either. The converted `nb-proofread-{en,zh}` stay in the product's staged dir until a proofread adapter exists — that adapter is the next seam gap |
+| l2.proofread | gold fixtures `proofread-{en,zh}` — **Decision 2026-07-20 (Tim): the BENCH is the canonical gold source.** The product's own copy (`benchmarks/guardian-v2-fixtures/proofread-zh.json`) is downstream/legacy; follow-up: re-point the product harness at bench fixtures through its declared seam (`lib/ai/guardian/bench/types.ts` — "[PROTOCOL]: When narrative-bench updates its fixture format, this file is the seam to update"). The structured `chapterId`/`detectorId`/`substring` annotations added 07-20 exist precisely so that seam can consume these files. **Finding 2026-07-29 (recording session): the product harness has NO l2.proofread adapter at all** — neither in `BENCH_ADAPTERS` (23 local) nor `LLM_BENCH_ADAPTERS` (9 LLM); its own `proofread-zh.json` gold has therefore never been scored either. **Superseded 2026-07-30:** the adapter now exists (`LLM_BENCH_ADAPTERS`, 10 total) and `nb-proofread-{en,zh}` are promoted into the bundled set. The root cause ran deeper than a missing adapter: the product's proofread and constraint-violation detectors **bypassed the cassette transport entirely** (`callL2Llm`/`callL1Llm` → raw `generateObject`), so record mode wrote nothing and replay mode silently made live API calls — no proofread cassette had ever existed. Fixed on product staging `63ff934d4` (both rerouted through `callGuardianLlm`, bypass modules deleted, unit tests pinned to replay). First replayable numbers: nb gold P=77.8% R=100% (07-29 live sample); full-corpus replay P=3.9% R=100% — that crater is a labeling-surface artifact (legacy product fixtures carry zero proofread annotations, so every flag scores FP) plus a real classical-prose FP problem (163 trap FPs on the 水浒/红楼-family corpora), baselined as the regression reference |
 | l4.opening-quality | wired 2026-07-19 (`noFalseOpeningErrors` dimension) — see caveat below |
 
 ## Proxy only (NOT the product detector's score)
@@ -141,9 +141,9 @@ adapters** (`l2.pov-leak`, `l3.character-arc`, `l3.causal-chain`,
 
 | Asset | Why it matters |
 |---|---|
-| `l1.constraint-violation` gold (`world-constraints-{en,zh}`) | the product's adapter roster does NOT include constraint-violation and its fixture dir has no constraint cases — **the flagship 1B.4 detector's only gold labels live here** |
+| `l1.constraint-violation` gold (`world-constraints-{en,zh}`) | **the flagship 1B.4 detector's only gold labels live here** (canon). Since 2026-07-29/30 the product consumes them through the converter seam: adapter + promoted `nb-world-constraints-{en,zh}` + first replayable cassette (staging `63ff934d4`) — P=71.4% R=83.3% F1=76.9%, 0 trap FPs. Live samples varied P=85.7/100/71.4 across three runs (the detector model ignores temperature), which is exactly why the cassette pins one |
 | Canonical-order timeline + KB-field entity gold (`proposed-detector` ×4) | no implementation anywhere; these are the spec |
-| `proofread-en` | the product only has `proofread-zh` |
+| `proofread-en` | canon lives here; the product's own `proofread-zh` is downstream/legacy — since 2026-07-30 the product consumes both locales as converted `nb-proofread-{en,zh}` |
 | Masterwork-scale FP-resistance corpus (Hamlet / Hong Lou Meng) | the product's `clean-prose-traps` is far smaller |
 
 ### B. Only the product has
@@ -151,7 +151,7 @@ adapters** (`l2.pov-leak`, `l3.character-arc`, `l3.causal-chain`,
 | Asset | Why it matters |
 |---|---|
 | Cassette-replay harness + CI gate | this repo has no baselines and cannot run any LLM detector |
-| 8 LLM adapters over real detectors | the only place gold labels become P/R numbers today |
+| 10 LLM adapters over real detectors (since 2026-07-30 incl. `l1.constraint-violation` + `l2.proofread`) | the only place gold labels become P/R numbers today |
 | Bilingual gold for `pov-leak`, `l3-flaw-pattern`, `l3-causal`, `l3-character`, `l3-coherence`; `inference-kinship` (the relations[] entity detector), `consistency-character`, per-content-type recall sets, `cliffhanger-overloaded`, `opening-weather` | **supersedes this doc's "LLM fixtures not yet authored" rows for pov-leak and flaw-pattern — convert/sync those from the product instead of authoring fresh** |
 
 ### C. Neither repo has (the true bare spots)
@@ -172,3 +172,9 @@ working session at that seam: (1) re-point proofread gold to this repo
 (bench-is-canon decision), (2) convert the product's pov-leak/flaw-pattern
 gold into this repo's format, (3) add an `l1.constraint-violation` adapter so
 1B.4 gets its first P/R numbers. After that, only row C needs new authoring.
+
+**Status 2026-07-30: all three landed.** (2) synced 07-19/22; (3) product
+#262 + staging `643d7a46e` (07-29); (1) completed 07-30 alongside the
+transport-bypass repair (staging `63ff934d4`) that made (1) and (3) actually
+record/replay instead of silently going live. Row C is the remaining
+authoring frontier.
