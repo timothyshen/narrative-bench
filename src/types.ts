@@ -86,6 +86,15 @@ export interface FixtureResult {
   name: string
   passed: boolean
   scores: Record<string, number>
+  /**
+   * The fixture's single headline quality number (0-100, higher is better).
+   * When set, the aggregator averages THIS instead of the raw `scores` fields —
+   * `scores` may mix units and polarities (counts, per-kword rates), and a mean
+   * over those is not a score. Fixtures without a defined quality (e.g. FP traps,
+   * whose precision/recall are definitionally meaningless) leave it unset and
+   * contribute to the aggregate only through passRate.
+   */
+  qualityScore?: number
   details: string
   costTokens: number
   latencyMs: number

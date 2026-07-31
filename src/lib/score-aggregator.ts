@@ -30,12 +30,20 @@ export function aggregateScores(fixtures: FixtureResult[]): AggregateScore {
   const passed = fixtures.filter((f) => f.passed).length
   const passRate = passed / fixtures.length
 
-  const fixtureScores = fixtures.map((f) => {
-    const metricValues = Object.values(f.scores)
-    return metricValues.length > 0
-      ? metricValues.reduce((a, b) => a + b, 0) / metricValues.length
-      : 0
-  })
+  // Evaluators that define a per-fixture qualityScore get a real headline: the mean of
+  // those scores, with quality-less fixtures (FP traps) excluded — they guard through
+  // passRate instead. Legacy fallback for evaluators that don't: mean over the raw
+  // score fields (mixed units — kept only until each evaluator defines its quality).
+  const withQuality = fixtures.filter((f) => f.qualityScore !== undefined)
+  const fixtureScores =
+    withQuality.length > 0
+      ? withQuality.map((f) => f.qualityScore as number)
+      : fixtures.map((f) => {
+          const metricValues = Object.values(f.scores)
+          return metricValues.length > 0
+            ? metricValues.reduce((a, b) => a + b, 0) / metricValues.length
+            : 0
+        })
   const overallScore =
     fixtureScores.reduce((a, b) => a + b, 0) / fixtureScores.length
 

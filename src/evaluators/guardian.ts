@@ -138,6 +138,15 @@ interface GuardianEvaluatorOptions {
 }
 
 /**
+ * FP-trap gate: Lane A false positives tolerated per 1000 words (per 1000 CJK chars
+ * for zh). ONE number, enforced exactly as stated — a trap gate that cannot fail is
+ * decorative. History: an earlier 8.0 tolerance existed only to absorb the CJK
+ * repetition detector's name-window artifacts; with those fixed, the original
+ * 2-per-1000 contract is enforced again, and a fixture over it fails honestly.
+ */
+const TRAP_GATE_LANE_A_FPS_PER_KWORDS = 2.0
+
+/**
  * Evaluate guardian performance against a set of fixtures.
  */
 export async function evaluateGuardian(
@@ -243,7 +252,7 @@ async function evaluateFixture(
   const { precision, recall, falsePositiveRate, truePositives, falsePositives, falseNegatives } = scoring
 
   // Pass criteria depends on fixture type:
-  // - FP-trap fixtures (expectedIssues=[]): pass if Lane A FPs <= 2 per 1000 words
+  // - FP-trap fixtures (expectedIssues=[]): pass if Lane A FPs <= TRAP_GATE per 1000 words
   // - Positive-example fixtures (expectedIssues>0): pass if precision>=75%, recall>=60%
   const isFPTrap = fixture.expectedIssues.length === 0
   // Word count: use character count for CJK, word count for Latin
@@ -257,7 +266,7 @@ async function evaluateFixture(
   const laneAFPsPerThousand = totalWords > 0 ? (falsePositives / totalWords) * 1000 : 0
 
   const passed = isFPTrap
-    ? laneAFPsPerThousand <= 8.0 // Tolerate up to 8 Lane A FPs per 1000 words on literary text (classical lit has deliberate repetition)
+    ? laneAFPsPerThousand <= TRAP_GATE_LANE_A_FPS_PER_KWORDS
     : precision >= 0.75 && falsePositiveRate <= 0.25 && recall >= 0.60
 
   // --- Per-detector breakdown ---
@@ -280,6 +289,10 @@ async function evaluateFixture(
     .filter(Boolean)
     .join(" | ")
 
+  // Positive fixtures headline on F1; FP traps have no meaningful precision/recall
+  // (TP=0 by construction) and contribute to the aggregate only through passRate.
+  const f1 = precision + recall === 0 ? 0 : (2 * precision * recall) / (precision + recall)
+
   return {
     id: fixture.id,
     name: fixture.name,
@@ -292,6 +305,7 @@ async function evaluateFixture(
       laneACount: laneAIssues.length,
       laneBCount: laneBSuggestions.length,
     },
+    ...(isFPTrap ? {} : { qualityScore: Math.round(f1 * 1000) / 10 }),
     details,
     costTokens: 0,
     latencyMs,
