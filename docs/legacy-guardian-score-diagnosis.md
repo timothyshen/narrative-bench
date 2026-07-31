@@ -3,7 +3,37 @@
 > Diagnosis only, per the task charter — no fixes applied. Per-fixture data from
 > `pnpm run bench -- --evaluator guardian` (reports/2026-07-29.json).
 
-## Per-fixture verdicts
+## Repairs landed 2026-07-31 (A + B + D — commits dc18203, 23d2637)
+
+**Headline 26.65 → 51.1; pass rate 50% → 25%. Both movements are disclosure,
+not improvement claims.**
+
+- **A (aggregation)**: `FixtureResult.qualityScore` (positive fixtures: F1) is
+  what the aggregator now averages; FP traps contribute through passRate only.
+  The old headline averaged precision next to per-kword rates and raw lane
+  counts — not a score.
+- **B (CJK repetition)**: maximal repeated spans instead of per-trigram windows,
+  proper-noun-containing spans skipped (the properNouns set finally reaches
+  `detectRepetition`), stop-word edges trimmed with a 3-char core minimum.
+  synthetic-issues-zh: 32 → 18 Lane A FPs (P=20 → 31); dream-red-chamber:
+  7 → 2 (7.26 → 2.07/kwords). No gold anywhere expects repetition → recall
+  untouched.
+- **D (trap gate)**: the documented 2-per-1000 contract is enforced from one
+  named constant (`TRAP_GATE_LANE_A_FPS_PER_KWORDS`); the 8.0 tolerance that
+  existed to absorb the name-window artifacts is gone. **dream-red-chamber now
+  FAILS honestly at 2.07** — its two residual FPs are genuine consecutive
+  repeats of 判词 verse, which a local pattern detector cannot exempt. That red
+  is tracked work (quote/verse awareness, C-family), not a scoring artifact.
+- **C stays deferred** per the repair order: en noisy detectors
+  (dead-character-appearance P=18, background-overload P=0, info-dump-dialogue
+  P=0) and the zh residue behind P=31.
+
+Post-repair verdicts: hamlet PASS (1.73), dream FAIL (2.07), en FAIL (q=63.2),
+zh FAIL (q=39.0). The suite is redder and truer.
+
+---
+
+## Per-fixture verdicts (original, 2026-07-29)
 
 | Fixture | Passed | Precision | Recall | Lane-A FPs/kwords | Reading |
 |---|---|---|---|---|---|
