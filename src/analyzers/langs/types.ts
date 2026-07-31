@@ -48,8 +48,9 @@ export interface StyleLanguageRules {
   detectPassiveVoice(text: string): Array<{ location: string }>
   /** Detect overused words, excluding whitelisted terms */
   detectOverusedWords(text: string, whitelist?: Set<string>): Array<{ word: string; count: number }>
-  /** Detect repetitive phrasing in consecutive sentences */
-  detectRepetition(text: string): Array<{ location: string }>
+  /** Detect repetitive phrasing in consecutive sentences. A repeated span that
+   *  contains a proper noun is subject continuity, not repetition — skipped. */
+  detectRepetition(text: string, properNouns?: Set<string>): Array<{ location: string }>
   /** Detect weak or generic verbs */
   detectWeakVerbs(text: string): Array<{ location: string }>
   /** Language-specific custom issues (e.g. Chinese particle density) */

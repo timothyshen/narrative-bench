@@ -176,7 +176,7 @@ export function identifyStyleIssues(chapters: Chapter[], properNouns?: Set<strin
       })
     }
 
-    for (const d of style.detectRepetition(plainContent)) {
+    for (const d of style.detectRepetition(plainContent, properNouns)) {
       issues.push({
         type: "repetition",
         severity: "medium",

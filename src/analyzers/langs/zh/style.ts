@@ -35,6 +35,18 @@ const PUNCTUATION = new Set([
   "（", "）", "【", "】", "—", "～",
 ])
 
+/**
+ * True when a repeated span contains any proper noun (>=2 chars) from the caller's
+ * knowledge base. A span built around a name (「王德福」, 「赵太夫人」's suffix windows)
+ * is subject continuity across sentences, not repetitive phrasing.
+ */
+function spanContainsProperNoun(span: string, properNouns: Set<string>): boolean {
+  for (const noun of properNouns) {
+    if (noun.length >= 2 && span.includes(noun)) return true
+  }
+  return false
+}
+
 const PASSIVE_PATTERNS = [
   /被.{1,10}[了过着]/,
   /受到.{1,10}[了过着的]/,
@@ -126,24 +138,45 @@ export const zhStyle: StyleLanguageRules = {
       .map(([word, count]) => ({ word, count }))
   },
 
-  detectRepetition(text) {
+  detectRepetition(text, properNouns) {
     const sentences = splitSentences(text)
     const repetitions: Array<{ location: string }> = []
     const seen = new Set<string>()
 
     for (let i = 0; i < sentences.length - 1; i++) {
       const chars = [...sentences[i]].filter(c => /[\u4e00-\u9fff]/.test(c))
+      const next = sentences[i + 1]
       // Use 3-character sequences to reduce false positives.
       // 2-char bigrams create noise from character name boundaries
       // (e.g. "是莉" from "是莉莉", "莉是" from "莉莉是").
-      for (let j = 0; j < chars.length - 2; j++) {
-        const phrase = `${chars[j]}${chars[j + 1]}${chars[j + 2]}`
-        if (chars.slice(j, j + 3).every(c => EXTENDED_STOP_WORDS.has(c))) continue
-        if (seen.has(phrase)) continue
-        if (sentences[i + 1].includes(phrase)) {
-          repetitions.push({ location: `"${phrase}" repeated in consecutive sentences` })
-          seen.add(phrase)
+      let j = 0
+      while (j < chars.length - 2) {
+        const window = chars.slice(j, j + 3)
+        if (window.every(c => EXTENDED_STOP_WORDS.has(c)) || !next.includes(window.join(""))) {
+          j += 1
+          continue
         }
+        // Grow the hit to the MAXIMAL span still present in the next sentence, then skip
+        // past it: sliding trigram windows over one repeated string (「赵太夫人」 →
+        // 「赵太夫」+「太夫人」) collapse into a single finding instead of one per window.
+        let end = j + 3
+        while (end < chars.length && next.includes(chars.slice(j, end + 1).join(""))) end += 1
+        // Trim function-word edges: 「的泥土」/「镇上的」 are the two-char words 泥土/镇上
+        // repeating, bridged into a trigram by a stop word. A trimmed core under 3 chars
+        // is exactly the bigram noise the trigram window exists to exclude.
+        let s = j
+        let e = end
+        while (s < e && EXTENDED_STOP_WORDS.has(chars[s])) s += 1
+        while (e > s && EXTENDED_STOP_WORDS.has(chars[e - 1])) e -= 1
+        j = end
+        if (e - s < 3) continue
+        const phrase = chars.slice(s, e).join("")
+        if (seen.has(phrase)) continue
+        seen.add(phrase)
+        // A recurring span containing a proper noun is subject continuity (王德福 doing
+        // things across sentences), not repetitive phrasing.
+        if (properNouns && spanContainsProperNoun(phrase, properNouns)) continue
+        repetitions.push({ location: `"${phrase}" repeated in consecutive sentences` })
       }
     }
     return repetitions.slice(0, 5)

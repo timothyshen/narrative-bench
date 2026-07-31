@@ -88,7 +88,7 @@ export interface LanguageStyleDetector {
 
   detectPassiveVoice(text: string): StyleDetection[]
   detectOverusedWords(text: string, properNouns?: Set<string>): OverusedWordDetection[]
-  detectRepetition(text: string): StyleDetection[]
+  detectRepetition(text: string, properNouns?: Set<string>): StyleDetection[]
   detectWeakVerbs(text: string): StyleDetection[]
   /** Language-specific detectors not shared across all languages */
   detectCustomIssues?(text: string): Array<Omit<StyleIssue, "chapterId">>
