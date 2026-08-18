@@ -1,0 +1,50 @@
+{
+  "id": "guardian-v3-l2-lexical-fatigue-en",
+  "name": "Lexical fatigue (en) — book-wide 'suddenly' crutch amid three traps",
+  "description": "Gold fixture for l2.lexical-fatigue (local, deterministic, book-scope). The product adapter already exists (lib/ai/guardian/bench/adapters.ts, BENCH_ADAPTERS) and fires only on orderIndex 0, passing the whole chapter list — so the expected issue is annotated on chapter 0 even though the finding is manuscript-wide.\n\nThe genuine habit: 'suddenly' appears 6 times in NARRATION across chapters 0-2, clearing all three thresholds (MIN_COUNT 6, MIN_CHAPTERS 3, MIN_DENSITY 0.002).\n\nThree traps, each aimed at a specific design decision in the detector:\n  (a) stripDialogue — 'really' appears 6+ times but almost entirely INSIDE dialogue, where crutch reliance is characterisation rather than a narration tell. A port that forgets to strip dialogue flags it.\n  (b) MIN_CHAPTERS — 'quite' appears 6 times but all in chapter 1. That is one localized stylistic burst, not a book-wide habit; chaptersWith=1 must keep it silent.\n  (c) whole-word matching — 'every'/'everyone' appear repeatedly in chapter 0. A substring match would count them as 'very' and flag a word the manuscript barely uses.\n\nChapter 3 carries no crutches at all, keeping total units honest for the density floor.\n\nCounts verified by running the shipped detector, not asserted: this is a local deterministic detector, so the gold is confirmed rather than anticipated.\n\nTagged no-local-impl: this repo has no lexical-fatigue port, so the local evaluator would score a guaranteed miss. The gold is for the product harness (BENCH_ADAPTERS already registers l2.lexical-fatigue). Drop the tag if the port lands.",
+  "locale": "en",
+  "contentType": "novel",
+  "chapters": [
+    {
+      "id": "lexfat-en-00",
+      "title": "The Ledger",
+      "content": "The lighthouse keeper had kept the same ledger for thirty-one years, and every entry was written in the same cramped hand. Every morning he climbed the stairs, and every evening he came back down, and the sea did what the sea does.\n\nSuddenly the lamp guttered. He set down the ledger and watched the flame recover, as it had recovered a thousand times before.\n\n\"You worry too much about that lamp,\" said his daughter from the doorway. \"You really do. Really, truly, absolutely too much.\"\n\nHe did not answer. Suddenly the wind shifted, and the window frame took up its old complaint.",
+      "orderIndex": 0
+    },
+    {
+      "id": "lexfat-en-01",
+      "title": "The Village",
+      "content": "The village below the light was quite small, quite poor, and quite content to be both. It was quite the least remarkable place on that coast, which suited the keeper quite well, and quite frankly suited his daughter less.\n\nSuddenly a boat appeared at the harbour mouth, riding low.\n\n\"They're back early,\" she said. \"Really early. That's really not like them at all.\"\n\nSuddenly everyone in the village seemed to be at the water's edge, though the keeper could not have said when they arrived.",
+      "orderIndex": 1
+    },
+    {
+      "id": "lexfat-en-02",
+      "title": "The Landing",
+      "content": "The cargo was oilcloth bundles, and the men carried them up the shingle without speaking. Suddenly the keeper understood what he was watching, and understood also that he had understood it for some time and declined to say so.\n\n\"Don't,\" his daughter said. \"Really. Don't go down there.\"\n\nSuddenly he was very tired — not the tiredness of the stairs, but the older kind.",
+      "orderIndex": 2
+    },
+    {
+      "id": "lexfat-en-03",
+      "title": "Fair Hands",
+      "content": "He wrote the entry the way he wrote all of them: the hour, the weather, the state of the lamp. He did not write what came ashore, and he did not write who carried it. The ledger held thirty-one years of weather and no history at all, and that, he decided, was the shape of a coward's life measured in fair hands.",
+      "orderIndex": 3
+    }
+  ],
+  "knowledgeBase": [],
+  "expectedIssues": [
+    {
+      "chapterId": "lexfat-en-00",
+      "detectorId": "l2.lexical-fatigue",
+      "severity": "info",
+      "descriptionPattern": "suddenly"
+    }
+  ],
+  "expectedNonIssues": [],
+  "tags": [
+    "no-local-impl",
+    "en",
+    "recall-test",
+    "guardian-v3-sync",
+    "false-positive-trap"
+  ]
+}

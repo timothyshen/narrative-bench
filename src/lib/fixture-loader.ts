@@ -52,12 +52,20 @@ export function loadFixtures<T extends keyof FixtureMap>(
   }
 
   const fixtures: FixtureMap[T][] = []
-  // Fixtures tagged "llm-detector" are gold data for the LLM-detector
-  // evaluation path, not inputs for the local evaluators. Enforce the
-  // exclusion here at the choke point — not per-evaluator — unless the
-  // caller asked for them by tag explicitly.
-  const wantsLlmDetector = tags?.includes("llm-detector") ?? false
-  let excludedLlm = 0
+  // Some fixtures are gold data for an evaluation path OTHER than the local
+  // evaluators, and loading them here would score a detector this repo cannot
+  // run — recall collapses to zero and drags the suite score with it. Enforce
+  // the exclusion at this choke point, not per-evaluator, unless the caller
+  // asked for that tag explicitly.
+  //
+  //   llm-detector  — gold for the LLM-detector eval path (needs API budget).
+  //   no-local-impl — the product ships the detector and its bench harness has
+  //                   an adapter, but this repo never ported the implementation.
+  //                   Drop the tag when the port lands; the name states the
+  //                   condition that makes it necessary, so it expires by itself.
+  const NON_LOCAL_TAGS = ["llm-detector", "no-local-impl"] as const
+  const requested = new Set(tags ?? [])
+  const excludedByTag = new Map<string, number>()
 
   for (const file of files) {
     try {
@@ -65,8 +73,11 @@ export function loadFixtures<T extends keyof FixtureMap>(
       const fixture = JSON.parse(raw) as FixtureMap[T]
       const fixtureTags = (fixture as { tags?: string[] }).tags || []
 
-      if (fixtureTags.includes("llm-detector") && !wantsLlmDetector) {
-        excludedLlm++
+      const nonLocal = NON_LOCAL_TAGS.find(
+        (t) => fixtureTags.includes(t) && !requested.has(t)
+      )
+      if (nonLocal) {
+        excludedByTag.set(nonLocal, (excludedByTag.get(nonLocal) ?? 0) + 1)
         continue
       }
 
@@ -81,9 +92,9 @@ export function loadFixtures<T extends keyof FixtureMap>(
     }
   }
 
-  if (excludedLlm > 0) {
+  for (const [tag, n] of excludedByTag) {
     console.log(
-      `[FixtureLoader] Excluded ${excludedLlm} llm-detector fixture(s) — gold data for the LLM eval path (pass --tags llm-detector to load them)`
+      `[FixtureLoader] Excluded ${n} ${tag} fixture(s) — gold for another eval path (pass --tags ${tag} to load them)`
     )
   }
 

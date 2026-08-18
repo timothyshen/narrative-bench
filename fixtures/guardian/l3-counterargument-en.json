@@ -1,0 +1,34 @@
+{
+  "id": "guardian-v3-l3-counterargument-en",
+  "name": "Counterargument coverage (en) — straw man, strongest objection left untouched",
+  "description": "Gold fixture for l3.counterargument-coverage (api-heavy, essay-aware Edu L3). An academic-formal essay — the register in which the prompt makes counterargument MANDATORY — arguing for abolishing parking minimums. It does register an objection and rebut it competently, which is what makes this a straw man rather than a simple omission: the objection it picks is the 'developer windfall' claim, the weakest available. The strongest reasonable objection to abolition is parking spillover onto surrounding residential streets and the congestion cost borne by existing residents. That objection is never named anywhere in the essay.\n\nThis is deliberately the subtle case. A detector that only catches essays with NO counterargument section will pass this one, because a counterargument section is present and well written. The prompt's second flag condition — 'registers an objection but only a weaker, easier one (a straw man) — the strongest objection is still ignored' — is exactly what must fire.\n\nTraps the detector must NOT flag: (a) the Shoup and Seattle census figures are properly sourced and support their claims — l3.evidence-claim-alignment's territory; (b) thesis, body and conclusion are in order — l3.argument-structure's territory; (c) the rebuttal it does make is logically sound, so the flaw is the CHOICE of objection, not the quality of the reasoning.\n\ndescriptionPattern anchors on 'windfall' — the straw man the prompt requires a correct finding to quote as the weaker objection registered instead.",
+  "locale": "en",
+  "contentType": "academic",
+  "chapters": [
+    {
+      "id": "counterarg-en-00",
+      "title": "Against Parking Minimums",
+      "content": "Minimum parking requirements are among the least examined instruments in municipal land-use law, and among the most consequential. This essay argues that cities should abolish them outright rather than reform them incrementally, because the requirements impose a fixed cost on every unit of housing regardless of whether its occupants own cars.\n\nThe cost is not marginal. A structured parking space in a mid-rise building costs between thirty and fifty thousand dollars to construct, and that cost is bundled into rent whether or not the tenant drives. Census data for Seattle shows that in buildings completed under a 1.0-space-per-unit mandate, sixteen per cent of tenant households owned no vehicle, meaning roughly one in six renters paid for a space that sat empty. Donald Shoup's audit of Los Angeles zoning found the mandate added an estimated eighteen per cent to the delivered cost of a studio apartment. The requirement therefore functions as a regressive transfer, paid disproportionately by the households least able to absorb it.\n\nSome critics frame abolition as a developer windfall — the claim that removing the mandate simply lets builders pocket the savings while charging the same rent. The objection does not survive contact with the market data. In Seattle's Capitol Hill, where parking minimums were eliminated in 2012, units delivered without parking rented for a measurable discount against comparable units with a bundled space, and the discount tracked the construction cost saved. Where the market is even moderately competitive, the saving is passed through, and the developer windfall thesis mistakes a one-time transition for a permanent rent.\n\nAbolition is therefore not a giveaway to builders but a correction to a mandate that has quietly taxed carless households for seventy years. Cities that reform the requirement downward rather than removing it keep the machinery in place and merely adjust the rate.",
+      "orderIndex": 0
+    }
+  ],
+  "knowledgeBase": [],
+  "expectedIssues": [
+    {
+      "chapterId": "counterarg-en-00",
+      "detectorId": "l3.counterargument-coverage",
+      "severity": "warning",
+      "substring": "Some critics frame abolition as a developer windfall",
+      "descriptionPattern": "windfall"
+    }
+  ],
+  "expectedNonIssues": [],
+  "tags": [
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync",
+    "nonfiction",
+    "edu-l3"
+  ]
+}

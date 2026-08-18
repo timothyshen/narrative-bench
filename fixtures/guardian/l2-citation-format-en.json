@@ -1,0 +1,51 @@
+{
+  "id": "guardian-v3-l2-citation-format-en",
+  "name": "Citation format (en) — one mixed chapter, three near-miss traps",
+  "description": "Gold fixture for l2.citation-format (local, deterministic, chapter-scope). The product's BENCH_ADAPTERS already registers this detector, so the gold is scoreable product-side without a port here.\n\nThe detector flags exactly one defect — a chapter MIXING numeric [n] and author-year citation systems — and requires BOTH styles to appear at least twice, because a lone parenthetical is not evidence of a mixed system (the implementation cites NLP review finding 8 for this threshold).\n\nChapter 0 is the genuine violation: three numeric citations and three author-year ones.\n\nThe other three chapters are traps, each aimed at a specific decision in the code:\n  ch1 — numeric only, six of them. min(numeric, authorYear) = 0. A detector that flags 'many citations' rather than 'mixed systems' fires here.\n  ch2 — THE boundary case. Four numeric citations plus exactly ONE author-year match: '(Munich, 1972)', which is a place-and-date parenthetical, not a citation at all. It does match AUTHOR_YEAR_RE, which is precisely why the >=2 threshold exists. min = 1, so the chapter must stay silent. Lower the threshold to 1 and this fixture catches it.\n  ch3 — author-year only, four of them. The mirror of ch1.\n\nBehaviour verified by running the shipped detector against all four chapters, not asserted.\n\nForm note (cost a rewrite of this fixture): AUTHOR_YEAR_RE requires the comma INSIDE the parentheses — '(Willcox, 2012)' matches, 'Willcox (2012)' does not. The narrative-style form with the author outside the bracket is invisible to this detector, so a fixture written that way is silently dead gold. Any zh counterpart must respect the same shape.",
+  "locale": "en",
+  "contentType": "academic",
+  "chapters": [
+    {
+      "id": "cite-en-00",
+      "title": "Cultivation and Domestication",
+      "content": "The transition to settled agriculture in the Levant is no longer read as a single event. Excavations at Abu Hureyra established a sequence in which foraging and cultivation overlapped for centuries [7], and the pattern has since been confirmed at three further sites [12]. Yet the standard synthesis still treats the shift as a threshold.\n\nThe difficulty is partly one of vocabulary. Cultivation and domestication are routinely used as though they named the same moment (Willcox, 2012), when the morphological evidence places them centuries apart. The same point has been made from the archaeobotanical side (Fuller, 2007), and both authors note that the conflation survives in textbooks that cite them.\n\nA more careful periodisation would separate the two [23]. Doing so dissolves the apparent suddenness of the transition, and with it the explanatory burden the threshold model has carried since the first synthesis of the problem (Childe, 1936).",
+      "orderIndex": 0
+    },
+    {
+      "id": "cite-en-01",
+      "title": "Note on Chronology",
+      "content": "The chronology below follows the conventional radiocarbon calibration [4]. Dates are given in calibrated years before present, following the convention adopted in the site reports [11]. Where the original excavators reported uncalibrated figures, these have been recalculated [15], and the revised values differ from the published ones by between forty and two hundred years [16]. Readers consulting the older literature should be aware that the discrepancy is systematic rather than random [19].",
+      "orderIndex": 1
+    },
+    {
+      "id": "cite-en-02",
+      "title": "The Collections",
+      "content": "The material discussed in this chapter is held in three collections. The Anatolian assemblage was catalogued during the reorganisation of the ethnographic holdings (Munich, 1972), and the accession numbers used here follow that catalogue throughout.\n\nComparative material is drawn from the published site reports [8], the supplementary microfiche [14], the revised concordance [21], and the unpublished field notebooks [27]. None of these sources has been re-examined against the originals since the collection moved.",
+      "orderIndex": 2
+    },
+    {
+      "id": "cite-en-03",
+      "title": "Scales of Time",
+      "content": "The interpretive tradition here descends from the distinction between structural and event-scale time (Braudel, 1949), which still organises most regional syntheses. It was applied directly to Mediterranean survey data (Bintliff, 1991) and later extended to the sea itself (Horden and Purcell, 2000). Each of these authors treats the longue durée as an analytical scale rather than a claim about causation, a distinction that later applications have not always preserved.",
+      "orderIndex": 3
+    }
+  ],
+  "knowledgeBase": [],
+  "expectedIssues": [
+    {
+      "chapterId": "cite-en-00",
+      "detectorId": "l2.citation-format",
+      "severity": "info",
+      "descriptionPattern": "mixes citation styles"
+    }
+  ],
+  "expectedNonIssues": [],
+  "tags": [
+    "en",
+    "false-positive-trap",
+    "guardian-v3-sync",
+    "no-local-impl",
+    "nonfiction",
+    "recall-test"
+  ]
+}
