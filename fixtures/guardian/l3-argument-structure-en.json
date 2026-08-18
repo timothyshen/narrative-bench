@@ -1,0 +1,34 @@
+{
+  "id": "guardian-v3-l3-argument-structure-en",
+  "name": "Argument structure (en) — thesis promises three forces, delivers one",
+  "description": "Gold fixture for l3.argument-structure (api-heavy, essay-aware Edu L3). An academic-formal essay whose thesis names THREE causes — parliamentary enclosure, seasonal migration, and the collapse of parish literacy provision — and then argues only the first. Migration and literacy are never discussed; the conclusion nonetheless asserts the multi-cause claim as established. That is the one genuine structural failure: sections promised by the thesis but never delivered.\n\nThe essay deliberately contains material the sibling detectors own and this one is instructed NOT to flag: (a) the Arthur Young quotation is evidence whose sufficiency is l3.evidence-claim-alignment's business, (b) the essay never engages the standard objection that town wages pulled labour voluntarily — that absence belongs to l3.counterargument-coverage, (c) paragraph three is repetitive and over-hedged, which is Layer 2's business. A detector that flags any of those three has crossed a boundary its own prompt draws. The structural break is real and quotable; everything else is a trap.\n\ndescriptionPattern anchors on 'literacy' — the promised force that is never delivered, and the word any correct finding must name.",
+  "locale": "en",
+  "contentType": "academic",
+  "chapters": [
+    {
+      "id": "arg-struct-en-00",
+      "title": "Enclosure and the Emptying of the Parish",
+      "content": "The Enclosure Acts did not merely redraw the map of rural England; they rewrote who could imagine a future there. This essay argues that the depopulation of the English countryside between 1760 and 1830 was driven by three forces acting together: parliamentary enclosure, seasonal migration to the textile towns, and the collapse of parish literacy provision.\n\nEnclosure is the force we can measure most precisely. Between 1760 and 1820, roughly four thousand individual Acts converted some six million acres of common land into private holdings. Parish records from Northamptonshire show the effect at village scale: in Wollaston, the number of households claiming common rights fell from 87 in 1755 to 11 by 1794. The cottager who had run two cows and a dozen geese on the waste now had neither the land nor, crucially, the collateral. Arthur Young, who had championed enclosure in the 1760s, wrote in 1801 that he had \"seen the poor of twenty parishes reduced from independence to the parish book,\" a reversal he attributed directly to the loss of common right. The mechanism is not mysterious. Common right was not charity; it was a productive asset, and its removal converted a smallholder into a wage-labourer in a single legal stroke.\n\nThe scale of that conversion is worth dwelling on. In parish after parish the pattern repeats with a monotony that is itself evidence: the commissioners arrive, the award is published, and within a decade the smallholding class has thinned to a remnant. Wollaston is not an outlier but a type specimen. What the records show, again and again, is that enclosure did not gradually erode independence so much as terminate it on a fixed date.\n\nThe countryside that emerged by 1830 was therefore not depopulated by accident or by the impersonal pull of the towns. It was depopulated by a legal instrument whose effects were understood at the time by the men who wielded it.",
+      "orderIndex": 0
+    }
+  ],
+  "knowledgeBase": [],
+  "expectedIssues": [
+    {
+      "chapterId": "arg-struct-en-00",
+      "detectorId": "l3.argument-structure",
+      "severity": "warning",
+      "substring": "seasonal migration to the textile towns, and the collapse of parish literacy provision",
+      "descriptionPattern": "literacy"
+    }
+  ],
+  "expectedNonIssues": [],
+  "tags": [
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync",
+    "nonfiction",
+    "edu-l3"
+  ]
+}

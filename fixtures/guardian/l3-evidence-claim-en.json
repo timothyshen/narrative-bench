@@ -1,0 +1,34 @@
+{
+  "id": "guardian-v3-l3-evidence-claim-en",
+  "name": "Evidence-claim alignment (en) — load-bearing claim rests on 'it is widely known'",
+  "description": "Gold fixture for l3.evidence-claim-alignment (api-heavy, essay-aware Edu L3). An academic-formal essay that argues carefully everywhere except one place: the fifty-per-cent citation premium — a load-bearing figure the whole argument is built to rebut — is introduced with 'It is widely known that' and attributed to no source. The detector's prompt names this exact failure mode ('Many people say…' / 'It is widely known that…' style unsupported generalizations as evidence), and the claim is load-bearing rather than decorative: remove it and the essay has nothing to correct.\n\nTraps the detector is instructed NOT to flag, all present on purpose: (a) the Davis 2008 randomised study IS properly cited and does support the claim it is attached to — correct evidence must not be flagged merely for being discussed at length; (b) the essay's structure is sound, thesis through conclusion — l3.argument-structure's business; (c) the counterargument about citation-accrual windows is raised AND engaged — l3.counterargument-coverage's business, and a well-covered one, so flagging it would be a false positive in a sibling's territory.\n\ndescriptionPattern anchors on 'widely known', the verbatim tell the prompt enumerates.",
+  "locale": "en",
+  "contentType": "academic",
+  "chapters": [
+    {
+      "id": "ev-claim-en-00",
+      "title": "The Open-Access Citation Premium",
+      "content": "Open-access publishing has moved from advocacy position to institutional default, but the case made for it has not kept pace. This essay argues that the citation advantage attributed to open access is real but narrower than its advocates claim, and that the strongest evidence for it comes from a research design most advocates do not cite.\n\nConsider first the standard claim. It is widely known that open-access articles are cited substantially more often than paywalled ones, and this advantage is generally taken to justify the article processing charges that fund the model. The figure most often repeated in university open-access policy documents is a citation premium of around fifty per cent.\n\nThat figure comes almost entirely from observational studies, and observational studies cannot separate the effect of access from the effect of selection. Authors choose which papers to pay to make open. They choose their better papers. Any premium measured this way is a compound of access and author confidence, and there is no way to decompose it after the fact.\n\nThe randomised evidence is more modest and more trustworthy. Davis and colleagues (2008) randomly assigned articles across eleven journals to open or subscription access and found a large increase in full-text downloads with no statistically detectable citation advantage within the first year. A later randomised study extended the window and found a small positive effect, well under the fifty per cent figure.\n\nAn objection deserves a hearing here: one year is short for citation accrual in slow-moving fields, and a null result at twelve months may simply be a measurement artifact. This is the strongest form of the counterargument, and the extended-window study is a partial answer to it — the effect it found was positive but small, which is consistent with a real advantage that observational designs inflate rather than invent.\n\nThe honest summary is therefore neither the advocate's fifty per cent nor the sceptic's zero. Open access appears to help, modestly, and the institutional case should be made on that basis rather than on a number the randomised evidence does not support.",
+      "orderIndex": 0
+    }
+  ],
+  "knowledgeBase": [],
+  "expectedIssues": [
+    {
+      "chapterId": "ev-claim-en-00",
+      "detectorId": "l3.evidence-claim-alignment",
+      "severity": "warning",
+      "substring": "It is widely known that open-access articles are cited substantially more often",
+      "descriptionPattern": "widely\\ known"
+    }
+  ],
+  "expectedNonIssues": [],
+  "tags": [
+    "llm-detector",
+    "en",
+    "recall-test",
+    "guardian-v3-sync",
+    "nonfiction",
+    "edu-l3"
+  ]
+}
